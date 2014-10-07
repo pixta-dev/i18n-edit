@@ -1,5 +1,5 @@
 {
-  "name": "yaml-translate",
+  "name": "i18n-edit",
   "main": "index.html",
   "devDependencies": {
     "mocha": "^1.21.4",
@@ -15,5 +15,15 @@
     "sequelize": "^2.0.0-rc1",
     "sqlite3": "^3.0.2",
     "thunkify": "^2.1.2"
-  }
+  },
+  "version": "0.0.0",
+  "description": "Edit Rails i18n YAMLs with node-webkit UI",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "MIT"
 }
