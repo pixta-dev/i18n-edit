@@ -2,13 +2,16 @@
   "name": "yaml-translate",
   "main": "index.html",
   "devDependencies": {
-    "mocha": "^1.21.4"
+    "mocha": "^1.21.4",
+    "mock-fs": "^2.3.1"
   },
   "dependencies": {
     "bootstrap": "^3.2.0",
     "co": "^3.1.0",
     "coffee-script": "https://github.com/jashkenas/coffeescript/tarball/158ca0d86958afa16ffd87ef629744feb74ab05c",
+    "deep-equal": "^0.2.1",
     "js-yaml": "^3.2.2",
+    "mkpath": "^0.1.0",
     "sequelize": "^2.0.0-rc1",
     "sqlite3": "^3.0.2",
     "thunkify": "^2.1.2"

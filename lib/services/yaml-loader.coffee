@@ -4,6 +4,7 @@ co = require 'co'
 thunkify = require 'thunkify'
 fs = require 'fs'
 yaml = require 'js-yaml'
+util = require '../util'
 File = require '../models/file'
 Translation = require '../models/translation'
 Text = require '../models/text'
@@ -21,8 +22,7 @@ class YamlLoader
       @file = yield File.create
         path: @path
       for file in @files
-        data = yield thunkify(fs.readFile) file, encoding: 'utf-8'
-        tree = yaml.safeLoad data
+        tree = yield util.loadYAMLFile(file)
         for key, value of tree
           @language = yield findOrCreate Language,
             name: key
