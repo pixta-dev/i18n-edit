@@ -49,6 +49,7 @@ class YamlLoader
       translation = yield findOrCreate Translation,
         FileId: @file.id
         path: fullKey
+        index: index
       yield Text.create
         value: value
         LanguageId: @language.id

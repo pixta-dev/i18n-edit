@@ -13,17 +13,19 @@ Language = require '../lib/models/language'
 
 describe 'YamlLoader', ->
 
+  beforeEach co ->
+    yield dbSync.sync()
+
+  afterEach co ->
+    yield dbSync.drop()
+
   describe '#load', ->
 
-    before co ->
-      yield dbSync.sync()
+    beforeEach co ->
       files = ['en', 'ja'].map (lang) ->
         path.join(__dirname, "fixtures/basic.#{lang}.yml")
       loader = new YamlLoader('basic', files)
       yield loader.load()
-
-    after co ->
-      yield dbSync.drop()
 
     it 'loads languages', co ->
       langs = yield Language.all()
@@ -61,3 +63,20 @@ describe 'YamlLoader', ->
       assert (yield texts[1].getLanguage()).equals ja
       assert (yield texts[1].getTranslation()).equals translation
       assert.equal texts[1].value, 'ぴよ'
+
+  describe '#load with YAML array', ->
+
+    beforeEach co ->
+      files = ['en', 'ja'].map (lang) ->
+        path.join(__dirname, "fixtures/array.#{lang}.yml")
+      loader = new YamlLoader('array', files)
+      yield loader.load()
+
+    it 'loads translations with indexes', co ->
+      translations = yield Translation.all()
+
+      assert.equal translations.length, 2
+      assert.equal translations[0].path, 'hoge.piyo'
+      assert.equal translations[0].index, 0
+      assert.equal translations[1].path, 'hoge.piyo'
+      assert.equal translations[1].index, 1
