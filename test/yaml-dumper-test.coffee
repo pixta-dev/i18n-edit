@@ -1,51 +1,53 @@
 'use strict'
 
-assert = require 'assert'
 path = require 'path'
 co = require 'co'
 mockFs = require 'mock-fs'
-deepEqual = require 'deep-equal'
 util = require '../lib/util'
 dbSync = require '../lib/db/sync'
 YamlLoader = require '../lib/services/yaml-loader'
 YamlDumper = require '../lib/services/yaml-dumper'
 File = require '../lib/models/file'
 
+assert = (require 'chai').assert
+
 describe 'YamlDumper', ->
 
-  beforeEach co ->
-    yield dbSync.sync()
+  ['basic', 'array'].forEach (type) ->
 
-  afterEach co ->
-    yield dbSync.drop()
+    describe '#dump', ->
 
-  beforeEach co ->
-    files = ['en', 'ja'].map (lang) ->
-      path.join(__dirname, "fixtures/basic.#{lang}.yml")
-    loader = new YamlLoader('basic', files)
-    yield loader.load()
+      beforeEach co ->
+        yield dbSync.sync()
 
-  describe '#dump', ->
+      afterEach co ->
+        yield dbSync.drop()
 
-    it 'dumps YAML files', co ->
-      mockFs
-        mock: {}
+      beforeEach co ->
+        files = ['en', 'ja'].map (lang) ->
+          path.join(__dirname, "fixtures/#{type}.#{lang}.yml")
+        loader = new YamlLoader(type, files)
+        yield loader.load()
 
-      file = (yield File.all())[0]
-      dumper = new YamlDumper('mock', file)
-      yield dumper.dump()
+      it "dumps YAML files: #{type}", co ->
+        mockFs
+          mock: {}
 
-      langs = ['en', 'ja']
+        file = (yield File.all())[0]
+        dumper = new YamlDumper('mock', file)
+        yield dumper.dump()
 
-      actual = {}
-      for lang in langs
-        actual[lang] = yield util.loadYAMLFile "mock/basic.#{lang}.yml"
+        langs = ['en', 'ja']
 
-      mockFs.restore()
+        actual = {}
+        for lang in langs
+          actual[lang] = yield util.loadYAMLFile "mock/#{type}.#{lang}.yml"
 
-      expected = {}
-      for lang in langs
-        expected[lang] = yield util.loadYAMLFile path.join(__dirname, "fixtures/basic.#{lang}.yml")
+        mockFs.restore()
 
-      for lang in langs
-        assert deepEqual actual[lang], expected[lang]
+        expected = {}
+        for lang in langs
+          expected[lang] = yield util.loadYAMLFile path.join(__dirname, "fixtures/#{type}.#{lang}.yml")
+
+        for lang in langs
+          assert.deepEqual actual[lang], expected[lang]
