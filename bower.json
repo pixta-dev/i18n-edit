@@ -1,0 +1,13 @@
+{
+  "name": "i18n-edit",
+  "version": "0.0.0",
+  "homepage": "https://github.com/pixta-dev/i18n-edit",
+  "authors": [
+    "Ryohei Ikegami <iofg2100@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "pure": "~0.5.0"
+  }
+}

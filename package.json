@@ -6,7 +6,6 @@
     "mock-fs": "^2.3.1"
   },
   "dependencies": {
-    "bootstrap": "^3.2.0",
     "chai": "^1.9.2",
     "co": "^3.1.0",
     "coffee-script": "https://github.com/jashkenas/coffeescript/tarball/158ca0d86958afa16ffd87ef629744feb74ab05c",
