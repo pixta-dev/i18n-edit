@@ -29,5 +29,13 @@
     "test": "mocha --harmony"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pixta-dev/i18n-edit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pixta-dev/i18n-edit/issues"
+  },
+  "homepage": "https://github.com/pixta-dev/i18n-edit"
 }
