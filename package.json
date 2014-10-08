@@ -1,6 +1,6 @@
 {
   "name": "i18n-edit",
-  "main": "index.html",
+  "main": "app/views/index.html",
   "devDependencies": {
     "mocha": "^1.21.4",
     "mock-fs": "^2.3.1"
