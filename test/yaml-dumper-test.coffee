@@ -3,11 +3,11 @@
 path = require 'path'
 co = require 'co'
 mockFs = require 'mock-fs'
-util = require '../lib/util'
-dbSync = require '../lib/db/sync'
-YamlLoader = require '../lib/services/yaml-loader'
-YamlDumper = require '../lib/services/yaml-dumper'
-File = require '../lib/models/file'
+util = require '../app/util'
+dbSync = require '../app/db/sync'
+YamlLoader = require '../app/services/yaml-loader'
+YamlDumper = require '../app/services/yaml-dumper'
+File = require '../app/models/file'
 
 assert = (require 'chai').assert
 

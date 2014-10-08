@@ -3,13 +3,13 @@
 assert = require 'assert'
 path = require 'path'
 co = require 'co'
-dbSync = require '../lib/db/sync'
-YamlLoader = require '../lib/services/yaml-loader'
+dbSync = require '../app/db/sync'
+YamlLoader = require '../app/services/yaml-loader'
 
-File = require '../lib/models/file'
-Translation = require '../lib/models/translation'
-Text = require '../lib/models/text'
-Language = require '../lib/models/language'
+File = require '../app/models/file'
+Translation = require '../app/models/translation'
+Text = require '../app/models/text'
+Language = require '../app/models/language'
 
 describe 'YamlLoader', ->
 
