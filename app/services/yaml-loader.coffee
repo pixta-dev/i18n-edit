@@ -4,6 +4,7 @@ co = require 'co'
 thunkify = require 'thunkify'
 fs = require 'fs'
 yaml = require 'js-yaml'
+_ = require 'lodash'
 util = require '../util'
 File = require '../models/file'
 Translation = require '../models/translation'
@@ -35,13 +36,15 @@ class YamlLoader
         item = tree[key]
         fullKey = baseKey + key
         switch
-          when typeof item == 'string'
-            yield @loadValue fullKey, null, item
-          when Array.isArray item
+          when _.isArray item
             for elem, i in item
               yield @loadValue fullKey, i, elem
-          else
+          when _.isPlainObject item
             yield @loadTree fullKey + '.', item
+          when !_.isObject item
+            yield @loadValue fullKey, null, item
+          else
+            console.log "unexpected value for YAML: #{item}"
       undefined
 
   loadValue: (fullKey, index, value) ->
