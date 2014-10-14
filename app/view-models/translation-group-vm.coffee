@@ -8,17 +8,23 @@ class TranslationGroupVM
     @type = 'group'
     @key = ko.observable()
     @children = ko.observableArray()
+    @childrenObj = {}
     @open = ko.observable false
 
   insert: (translation, keys) ->
     keys ?= translation.path.split('.')
     key = keys[0]
     if keys.length == 1
-      @children.push new TranslationVM(translation)
+      child = new TranslationVM(translation)
+      @children.push child
+      @childrenObj[key] = child
     else
-      childVM = new TranslationGroupVM()
-      childVM.key key
-      childVM.insert translation, keys.slice(1)
-      @children.push childVM
+      child = @childrenObj[key]
+      unless child?
+        child = new TranslationGroupVM()
+        child .key key
+        @children.push child
+        @childrenObj[key] = child
+      child.insert translation, keys.slice(1)
 
 module.exports = TranslationGroupVM
