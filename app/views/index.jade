@@ -10,8 +10,13 @@ html
       thead
         tr
           th キー
-      tr
-        td
-          view
-      tr
-        td(style='padding-left: 40px;') hoge
+          // ko foreach: languages
+          th(data-bind="text: $data")
+          // /ko
+      // ko template: {name: 'translation-group-template', data: root}
+      // /ko
+    pre(data-bind="text: ko.toJSON($data, null, 2)")
+    script.
+      require('coffee-script/register');
+      require('../../app/index');
+      //require('sqlite3');

@@ -1,0 +1,10 @@
+tr
+  td(data-bind="text: key")
+  // ko if: type == 'translation'
+  // ko foreach: texts
+  td(data-bind="text: $data")
+  // /ko
+  // /ko
+// ko if: type === 'group'
+// ko template: {name: 'translation-group-template', foreach: children}
+// /ko
