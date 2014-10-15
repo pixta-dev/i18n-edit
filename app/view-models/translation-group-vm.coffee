@@ -1,5 +1,6 @@
 ko = require 'knockout'
 _ = require 'lodash'
+co = require 'co'
 util = require '../util'
 TranslationVM = require './translation-vm'
 
@@ -11,11 +12,12 @@ class TranslationGroupVM
     @childrenObj = {}
     @open = ko.observable false
 
-  insert: (translation, keys) ->
+  insert: (translation, keys) -> co =>
     keys ?= translation.path.split('.')
     key = keys[0]
     if keys.length == 1
-      child = new TranslationVM(translation)
+      child = new TranslationVM
+      yield child.loadTranslation translation
       @children.push child
       @childrenObj[key] = child
     else
@@ -25,6 +27,6 @@ class TranslationGroupVM
         child .key key
         @children.push child
         @childrenObj[key] = child
-      child.insert translation, keys.slice(1)
+      yield child.insert translation, keys.slice(1)
 
 module.exports = TranslationGroupVM

@@ -34,8 +34,8 @@ do co ->
   yield dbSync.sync()
 
   files = ['en', 'ja'].map (lang) ->
-    path.join(__dirname, "../test/fixtures/basic.#{lang}.yml")
+    path.join(__dirname, "../test/fixtures/rails-i18n/rails-i18n.#{lang}.yml")
   loader = new YamlLoader('basic', files)
   yield loader.load()
 
-  vm.loadFile (yield File.all())[0]
+  yield vm.loadFile (yield File.all())[0]
