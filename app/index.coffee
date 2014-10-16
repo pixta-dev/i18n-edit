@@ -10,11 +10,7 @@ $ = require 'jquery'
 co = require 'co'
 thunkify = require 'thunkify'
 fs = require 'fs'
-YamlLoader = require './services/yaml-loader'
-File = require './models/file'
-FileVM = require './view-models/file-vm'
-dbSync = require '../app/db/sync'
-
+loadYAMLFiles = require './services/load-yaml-files'
 
 loadTemplates = -> co ->
   files = yield thunkify(glob)("#{__dirname}/../dist/views/templates/*.html")
@@ -25,17 +21,10 @@ loadTemplates = -> co ->
     $('body').append(template)
 
 do co ->
-
   yield loadTemplates()
-
-  vm = new FileVM()
-  ko.applyBindings vm, $('body')[0]
-
-  yield dbSync.sync()
 
   files = ['en', 'ja'].map (lang) ->
     path.join(__dirname, "../test/fixtures/rails-i18n/rails-i18n.#{lang}.yml")
-  loader = new YamlLoader('basic', files)
-  yield loader.load()
 
-  yield vm.loadFile (yield File.all())[0]
+  vm = yield loadYAMLFiles('rails-i18n', files)
+  ko.applyBindings vm, $('body')[0]
