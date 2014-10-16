@@ -5,8 +5,8 @@ yaml = require 'js-yaml'
 _ = require 'lodash'
 
 util = require '../util'
-languages = require '../languages'
 
+languageVM = require '../view-models/language-vm'
 TranslationVM = require '../view-models/translation-vm'
 MapVM = require '../view-models/map-vm'
 ArrayVM = require '../view-models/array-vm'
@@ -37,7 +37,7 @@ loadYAMLFiles = (path, files) -> co ->
   for file in files
     yaml = yield util.loadYAMLFile(file)
     for lang, child of yaml
-      languages.add lang
+      languageVM.add lang
       _.merge tree, langBeforeLeaf lang, child
   root = treeToVM tree
   new FileVM(path, root)

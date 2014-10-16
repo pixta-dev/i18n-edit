@@ -21,11 +21,8 @@ describe 'loadYAMLFiles', ->
     root = fileVM.root()
     hoge = root.childrenObject().hoge
     piyo = hoge.childrenObject().piyo
-    assert.equal piyo.texts().ja, 'ぴよ'
-    assert.equal piyo.texts().en, 'Piyo'
+    assert.deepEqual piyo.texts(), ['Piyo', 'ぴよ']
 
-    array = hoge.childrenObject().array.children()
-    assert.equal array[0].texts().ja, 'ほげ'
-    assert.equal array[1].texts().ja, 'ぴよ'
-    assert.equal array[0].texts().en, 'Hoge'
-    assert.equal array[1].texts().en, 'Piyo'
+    array = hoge.childrenObject().array.childrenArray()
+    assert.deepEqual array[0].texts(), ['Hoge', 'ほげ']
+    assert.deepEqual array[1].texts(), ['Piyo', 'ぴよ']
