@@ -3,6 +3,7 @@
   "main": "dist/views/index.html",
   "js-flags": "--harmony",
   "devDependencies": {
+    "chai": "^1.9.2",
     "gulp": "^3.8.8",
     "gulp-jade": "^0.8.0",
     "gulp-notify": "^2.0.0",
@@ -11,7 +12,6 @@
     "mock-fs": "^2.3.1"
   },
   "dependencies": {
-    "chai": "^1.9.2",
     "co": "^3.1.0",
     "coffee-script": "https://github.com/jashkenas/coffeescript/tarball/158ca0d86958afa16ffd87ef629744feb74ab05c",
     "glob": "^4.0.6",
