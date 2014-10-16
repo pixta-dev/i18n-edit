@@ -11,4 +11,5 @@ class MapVM
     @type = 'map'
     @childrenObject = ko.observable(childrenObj)
     @children = ko.computed =>
-      _.pairs(@childrenObject).map (k, v) -> new KeyValueVM k, v
+      _.pairs(@childrenObject()).map ([k, v]) =>
+        new KeyValueVM k, v

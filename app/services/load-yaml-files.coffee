@@ -34,12 +34,14 @@ treeToVM = (tree) ->
 
 loadYAMLFiles = (path, files) -> co ->
   tree = {}
+  time = new Date().getTime()
   for file in files
     yaml = yield util.loadYAMLFile(file)
     for lang, child of yaml
       languageVM.add lang
       _.merge tree, langBeforeLeaf lang, child
   root = treeToVM tree
+  console.log "#{new Date().getTime() - time} ms elapsed"
   new FileVM(path, root)
 
 module.exports = loadYAMLFiles

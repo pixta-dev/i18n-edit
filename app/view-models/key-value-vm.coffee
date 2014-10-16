@@ -6,4 +6,4 @@ module.exports =
 class KeyValueVM
 
   constructor: (@key, @value) ->
-    @type = 'mapEntry'
+    @type = 'keyValue'

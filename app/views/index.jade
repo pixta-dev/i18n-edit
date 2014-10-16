@@ -10,10 +10,14 @@ html
       thead
         tr
           th キー
-          // ko foreach: languages
+          // ko with: languageVM
+          // ko foreach: names
           th(data-bind="text: $data")
           // /ko
-      // ko template: {name: 'translation-group-template', data: root}
+          // /ko
+      // ko with: root
+      // ko template: {name: 'translation-group-template', foreach: children()}
+      // /ko
       // /ko
     pre(data-bind="text: ko.toJSON($data, null, 2)")
     script.

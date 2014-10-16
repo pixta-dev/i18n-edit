@@ -2,6 +2,9 @@
   "name": "i18n-edit",
   "main": "dist/views/index.html",
   "js-flags": "--harmony",
+  "window": {
+    "toolbar": true
+  },
   "devDependencies": {
     "chai": "^1.9.2",
     "gulp": "^3.8.8",
