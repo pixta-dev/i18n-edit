@@ -1,17 +1,10 @@
 'use strict'
 
-ko = require 'knockout'
-KeyValueVM = require './key-value-vm'
+CollapsibleVM = require './collapsible-vm'
 
 module.exports =
-class ArrayVM
+class ArrayVM extends CollapsibleVM
 
-  constructor: (children) ->
+  constructor: (@children) ->
+    super()
     @type = 'array'
-    @childrenArray = ko.observable(children)
-    @children = ko.computed =>
-      for child, i in @childrenArray()
-        new KeyValueVM i, child
-
-  indexForChild: (child) ->
-    @children().indexOf(child)

@@ -1,19 +1,10 @@
 'use strict'
 
-ko = require 'knockout'
-_ = require 'lodash'
-KeyValueVM = require './key-value-vm'
+CollapsibleVM = require './collapsible-vm'
 
 module.exports =
-class MapVM
+class MapVM extends CollapsibleVM
 
-  constructor: (childrenObj) ->
+  constructor: (@children) ->
+    super()
     @type = 'map'
-    @childrenObject = ko.observable(childrenObj)
-    @open = ko.observable(true)
-    @children = ko.computed =>
-      _.pairs(@childrenObject()).map ([k, v]) =>
-        new KeyValueVM k, v
-
-  toggleOpen: ->
-    @open !@open()

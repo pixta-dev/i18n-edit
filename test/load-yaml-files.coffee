@@ -17,12 +17,18 @@ describe 'loadYAMLFiles', ->
     fileVM = yield loadYAML 'test', files
 
   it 'loads YAML into a FileVM', ->
-    assert.equal 'test', fileVM.path()
-    root = fileVM.root()
-    hoge = root.childrenObject().hoge
-    piyo = hoge.childrenObject().piyo
-    assert.deepEqual piyo.texts(), ['Piyo', 'ぴよ']
+    assert.equal 'test', fileVM.path
+    root = fileVM.root
+    hoge = root.children.hoge
+    piyo = hoge.children.piyo
+    assert.deepEqual piyo.texts,
+      en: 'Piyo'
+      ja: 'ぴよ'
 
-    array = hoge.childrenObject().array.childrenArray()
-    assert.deepEqual array[0].texts(), ['Hoge', 'ほげ']
-    assert.deepEqual array[1].texts(), ['Piyo', 'ぴよ']
+    array = hoge.children.array.children
+    assert.deepEqual array[0].texts,
+      en: 'Hoge'
+      ja: 'ほげ'
+    assert.deepEqual array[1].texts,
+      en: 'Piyo'
+      ja: 'ぴよ'

@@ -2,31 +2,28 @@
 
 global.document = window.document
 global.navigator = window.navigator
-
-path = require 'path'
-ko = require 'knockout'
-glob = require 'glob'
-$ = require 'jquery'
-co = require 'co'
-thunkify = require 'thunkify'
-fs = require 'fs'
-loadYAMLFiles = require './services/load-yaml-files'
-
 gui = global.window.nwDispatcher.requireNwGui()
 
-loadTemplates = -> co ->
-  files = yield thunkify(glob)("#{__dirname}/../dist/views/templates/*.html")
-  for file in files
-    name = path.basename file, '.html'
-    data = yield thunkify(fs.readFile) file, encoding: 'utf-8'
-    template = "<script type='text/html' id='#{name}-template'>#{data}</script>"
-    $('body').append(template)
+$ = require 'jquery'
+diff = require 'virtual-dom/diff'
+patch = require 'virtual-dom/patch'
+createElement = require 'virtual-dom/create-element'
+App = require './app'
 
-do co ->
-  yield loadTemplates()
+App.start()
 
-  files = ['en', 'ja'].map (lang) ->
-    path.join(__dirname, "../test/fixtures/rails-i18n/rails-i18n.#{lang}.yml")
+$ ->
 
-  vm = yield loadYAMLFiles('rails-i18n', files)
-  ko.applyBindings vm, $('body')[0]
+  rootDOM = null
+  tree = null
+
+  App.instance.on 'update', ->
+
+    newTree = App.instance.render()
+    if rootDOM?
+      patches = diff(tree, newTree)
+      rootDOM = patch(rootDOM, patches)
+    else
+      rootDOM = createElement(newTree)
+      $('body').append(rootDOM)
+    tree = newTree

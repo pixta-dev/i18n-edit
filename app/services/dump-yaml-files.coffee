@@ -13,22 +13,22 @@ dumpYAMLFromVM = (lang, vm) ->
   dump = (vm) ->
     switch vm.constructor
       when ArrayVM
-        vm.childrenArray().map dump
+        vm.children.map dump
       when MapVM
-        _.mapValues vm.childrenObject(), dump
+        _.mapValues vm.children, dump
       when TranslationVM
-        vm.texts()[languageVM.names().indexOf(lang)]
+        vm.texts[lang]
   dump vm
 
 dumpYAMLFiles = (baseDir, fileVM) -> co ->
-  langs = languageVM.names()
+  langs = languageVM.names
   for lang in langs
-    yaml = dumpYAMLFromVM lang, fileVM.root()
+    yaml = dumpYAMLFromVM lang, fileVM.root
     yamlWithLang = {}
     yamlWithLang[lang] = yaml
     console.log yamlWithLang
 
-    filePath = path.join(baseDir, "#{fileVM.path()}.#{lang}.yml")
+    filePath = path.join(baseDir, "#{fileVM.path}.#{lang}.yml")
     yield util.dumpYAMLFile(yamlWithLang, filePath)
 
 module.exports = dumpYAMLFiles
