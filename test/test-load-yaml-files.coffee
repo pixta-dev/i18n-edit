@@ -1,6 +1,5 @@
 'use strict'
 
-assert = require 'assert'
 path = require 'path'
 co = require 'co'
 assert = (require 'chai').assert
