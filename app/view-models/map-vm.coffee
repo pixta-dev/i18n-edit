@@ -10,6 +10,10 @@ class MapVM
   constructor: (childrenObj) ->
     @type = 'map'
     @childrenObject = ko.observable(childrenObj)
+    @open = ko.observable(true)
     @children = ko.computed =>
       _.pairs(@childrenObject()).map ([k, v]) =>
         new KeyValueVM k, v
+
+  toggleOpen: ->
+    @open !@open()

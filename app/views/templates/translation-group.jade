@@ -1,11 +1,13 @@
 tr
-  td(data-bind="text: key")
+  td(data-bind="click: function() { value.toggleOpen() }")
+    span(data-bind="style: { 'padding-left': ($parents.length - 2) * 20 + 'px' }")
+      span(data-bind="text: key")
   // ko if: value.type == 'translation'
   // ko foreach: value.texts
   td(data-bind="text: $data")
   // /ko
   // /ko
-// ko if: value.type === 'map'
+// ko if: value.type === 'map' && value.open
 // ko template: {name: 'translation-group-template', foreach: value.children}
 // /ko
 // /ko

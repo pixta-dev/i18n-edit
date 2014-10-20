@@ -12,6 +12,8 @@ thunkify = require 'thunkify'
 fs = require 'fs'
 loadYAMLFiles = require './services/load-yaml-files'
 
+gui = global.window.nwDispatcher.requireNwGui()
+
 loadTemplates = -> co ->
   files = yield thunkify(glob)("#{__dirname}/../dist/views/templates/*.html")
   for file in files
