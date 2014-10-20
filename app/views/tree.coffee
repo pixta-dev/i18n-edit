@@ -26,7 +26,11 @@ renderValues = (item) ->
   isTranslation = (item.type == 'translation')
   for name in languageVM.names
     if isTranslation
-      h 'td', [item.texts[name] || '']
+      onchange = ->
+        item.texts[name] = @value
+      h 'td', [
+        h 'textarea', {onchange}, [item.texts[name] || '']
+      ]
     else
       h 'td', ['']
 
@@ -36,7 +40,7 @@ renderTree = (key, item, depth = 0) ->
   else
     'tr.pure-table-odd'
 
-  row = h rowType, [
+  row = h rowType,[
     renderKey key, item, depth
     renderValues(item)...
   ]
