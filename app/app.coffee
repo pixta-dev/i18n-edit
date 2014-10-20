@@ -14,7 +14,7 @@ class App extends EventEmitter
       files = ['en', 'ja'].map (lang) =>
         path.join(__dirname, "../test/fixtures/rails-i18n/rails-i18n.#{lang}.yml")
 
-      @fileVM = yield loadYAMLFiles('rails-i18n', files)
+      @fileVM = yield loadYAMLFiles(path.join(__dirname, '../test/fixtures/rails-i18n/'), 'rails-i18n', files)
       @update()
 
   update: ->
