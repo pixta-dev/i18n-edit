@@ -2,4 +2,4 @@
 
 module.exports =
 class FileVM
-  constructor: (@path, @root) ->
+  constructor: (@dir, @name, @root) ->

@@ -13,10 +13,11 @@ describe 'loadYAMLFiles', ->
   beforeEach co ->
     files = ['en', 'ja'].map (lang) ->
       path.join(__dirname, "fixtures/test.#{lang}.yml")
-    fileVM = yield loadYAML 'test', files
+    fileVM = yield loadYAML path.join(__dirname, 'fixtures'), 'test', files
 
   it 'loads YAML into a FileVM', ->
-    assert.equal 'test', fileVM.path
+    assert.equal 'test', fileVM.name
+    assert.equal path.join(__dirname, 'fixtures'), fileVM.dir
     root = fileVM.root
     hoge = root.children.hoge
     piyo = hoge.children.piyo

@@ -16,7 +16,7 @@ describe 'dumpYAMLFiles', ->
   beforeEach co ->
     files = ['en', 'ja'].map (lang) ->
       path.join(__dirname, "fixtures/test.#{lang}.yml")
-    fileVM = yield loadYAML 'test', files
+    fileVM = yield loadYAML path.join(__dirname, "fixtures"), 'test', files
 
   ['en', 'ja'].forEach (lang) ->
 
@@ -24,7 +24,7 @@ describe 'dumpYAMLFiles', ->
       mockFs
         mock: {}
 
-      yield dumpYAML('mock', fileVM)
+      yield dumpYAML('mock/test', fileVM)
       actual = yield util.loadYAMLFile "mock/test.#{lang}.yml"
       mockFs.restore()
 

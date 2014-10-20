@@ -32,7 +32,7 @@ treeToVM = (tree) ->
     when _.isPlainObject tree
       new MapVM _.mapValues tree, treeToVM
 
-loadYAMLFiles = (path, files) -> co ->
+loadYAMLFiles = (dir, name, files) -> co ->
   tree = {}
   time = new Date().getTime()
   for file in files
@@ -42,6 +42,6 @@ loadYAMLFiles = (path, files) -> co ->
       _.merge tree, langBeforeLeaf lang, child
   root = treeToVM tree
   console.log "#{new Date().getTime() - time} ms elapsed"
-  new FileVM(path, root)
+  new FileVM(dir, name, root)
 
 module.exports = loadYAMLFiles
