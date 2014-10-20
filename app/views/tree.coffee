@@ -4,12 +4,23 @@ h = require 'virtual-dom/h'
 languageVM = require '../view-models/language-vm'
 
 renderKey = (key, item, depth) ->
-  attrs = {}
-  unless item.type == 'translation'
-    attrs.onclick = -> item.toggleOpen()
-  h 'td', attrs, [
-    h 'span', { style: { paddingLeft: "#{depth * 20}px" }}, [key]
-  ]
+  span = h 'span', { style: { paddingLeft: "#{depth + 1}em" }}, [key]
+
+  if item.type == 'translation'
+    h 'td', [
+      h 'div', { style: { width: '0.5em', height: '0.5em' } }, ['']
+      span
+    ]
+  else
+    icon = if item.open
+      './bower_components/open-iconic/svg/chevron-bottom.svg'
+    else
+      './bower_components/open-iconic/svg/chevron-right.svg'
+
+    h 'td', { onclick: -> item.toggleOpen() }, [
+      h 'img', { style: { width: '0.5em', height: '0.5em' }, src: icon }, ['']
+      span
+    ]
 
 renderValues = (item) ->
   isTranslation = (item.type == 'translation')
@@ -20,7 +31,12 @@ renderValues = (item) ->
       h 'td', ['']
 
 renderTree = (key, item, depth = 0) ->
-  row = h 'tr', [
+  rowType = if item.type == 'translation'
+    'tr'
+  else
+    'tr.pure-table-odd'
+
+  row = h rowType, [
     renderKey key, item, depth
     renderValues(item)...
   ]
