@@ -1,6 +1,6 @@
 'use strict'
 
-App = require '../app'
+app = require '../app'
 
 module.exports =
 class CollapsibleVM
@@ -9,4 +9,4 @@ class CollapsibleVM
 
   toggleOpen: ->
     @open = !@open
-    App.instance.update()
+    app.update()

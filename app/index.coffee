@@ -4,26 +4,20 @@ global.document = window.document
 global.navigator = window.navigator
 gui = global.window.nwDispatcher.requireNwGui()
 
-$ = require 'jquery'
 diff = require 'virtual-dom/diff'
 patch = require 'virtual-dom/patch'
 createElement = require 'virtual-dom/create-element'
-App = require './app'
+app = require './app'
 
-App.start()
+window.addEventListener 'load', ->
+  app.start()
 
-$ ->
+  tree = app.render()
+  rootDOM = createElement(tree)
+  document.body.appendChild(rootDOM)
 
-  rootDOM = null
-  tree = null
-
-  App.instance.on 'update', ->
-
-    newTree = App.instance.render()
-    if rootDOM?
-      patches = diff(tree, newTree)
-      rootDOM = patch(rootDOM, patches)
-    else
-      rootDOM = createElement(newTree)
-      $('body').append(rootDOM)
+  app.on 'update', ->
+    newTree = app.render()
+    patches = diff(tree, newTree)
+    rootDOM = patch(rootDOM, patches)
     tree = newTree

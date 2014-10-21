@@ -4,24 +4,17 @@ path = require 'path'
 co = require 'co'
 EventEmitter = (require 'events').EventEmitter
 
-module.exports =
 class App extends EventEmitter
-  @start: ->
-    @instance = new App()
-
-  constructor: ->
-    do co =>
-      files = ['en', 'ja'].map (lang) =>
-        path.join(__dirname, "../test/fixtures/rails-i18n/rails-i18n.#{lang}.yml")
-
-      @fileVM = yield loadYAMLFiles(path.join(__dirname, '../test/fixtures/rails-i18n/'), 'rails-i18n', files)
-      @update()
+  start: ->
+    @windowVM = new WindowVM()
 
   update: ->
     @emit 'update'
 
   render: ->
-    renderFileTable(@fileVM)
+    renderWindow(@windowVM)
 
-loadYAMLFiles = require './services/load-yaml-files'
-renderFileTable = require './views/file-table'
+module.exports = new App()
+
+renderWindow = require './views/window'
+WindowVM = require './view-models/window-vm'

@@ -1,19 +1,26 @@
 'use strict'
 
-app = (require '../app').instance
-SideBarVM = require './sidebar-vm'
+app = require '../app'
+SideBarVM = require './side-bar-vm'
 
 module.exports =
 class WindowVM
   constructor: ->
-    @title = 'Title'
     @sideBar = new SideBarVM()
-    @sideBarOpen = true
     @states = []
 
-  pushState: (vmLazy, title) ->
-    @states.push {vmLazy, title}
-    @contentVM = vmLazy()
+    Object.defineProperty this, 'prevState',
+      get: => @states[@states.length - 2]
+    Object.defineProperty this, 'currentState',
+      get: => @states[@states.length - 1]
+    Object.defineProperty this, 'title',
+      get: => @currentState.title
+
+    @pushState {}, 'Home'
+
+  pushState: (vm, title) ->
+    @states.push {vm, title}
+    @contentVM = vm
     app.update()
 
   clearStates: ->
