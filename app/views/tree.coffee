@@ -40,7 +40,7 @@ renderTree = (key, item, depth = 0) ->
   else
     'tr.pure-table-odd'
 
-  row = h rowType,[
+  row = h 'tr', [
     renderKey key, item, depth
     renderValues(item)...
   ]

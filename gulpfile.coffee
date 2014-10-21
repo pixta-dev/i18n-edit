@@ -1,21 +1,25 @@
 'use strict'
 
 gulp = require 'gulp'
-jade = require 'gulp-jade'
+less = require 'gulp-less'
 plumber = require 'gulp-plumber'
 notify = require 'gulp-notify'
+sourcemaps = require 'gulp-sourcemaps'
 
-jadePath = './app/views/**/*.jade'
+lessPath = './app/styles/**/*.less'
+lessDest = './dist/styles'
 
-gulp.task 'build:jade', ->
-  gulp.src jadePath
+gulp.task 'build:less', ->
+  gulp.src lessPath
     .pipe plumber
       errorHandler: notify.onError("Error: <%= error.message %>")
-    .pipe jade()
-    .pipe notify("Build Finished")
-    .pipe gulp.dest './dist/views'
+    .pipe sourcemaps.init()
+    .pipe less()
+    .pipe sourcemaps.write()
+    .pipe notify("Less Build Finished")
+    .pipe gulp.dest lessDest
 
-gulp.task 'watch:jade', ->
-  gulp.watch jadePath, ['build:jade']
+gulp.task 'watch:less', ->
+  gulp.watch lessPath, ['build:less']
 
-gulp.task 'default', ['build:jade', 'watch:jade']
+gulp.task 'default', ['build:less', 'watch:less']
