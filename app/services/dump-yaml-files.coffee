@@ -17,7 +17,7 @@ dumpYAMLFromVM = (lang, vm) ->
       when 'map'
         _.mapValues vm.children, dump
       when 'translation'
-        vm.texts[lang] ? null
+        vm.texts[lang]
       when 'inconsistency'
         dump vm.trees[lang]
   dump vm

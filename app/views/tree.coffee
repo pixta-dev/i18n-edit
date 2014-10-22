@@ -6,40 +6,35 @@ languageVM = require '../view-models/language-vm'
 renderKey = (key, item, depth) ->
   span = h 'span', { style: { paddingLeft: "#{depth + 1}em" }}, [key]
 
-  if item.type == 'translation'
-    h 'td', [
-      h 'div', { style: { width: '0.5em', height: '0.5em' } }, ['']
-      span
-    ]
-  else
-    icon = if item.open
-      './bower_components/open-iconic/svg/chevron-bottom.svg'
-    else
-      './bower_components/open-iconic/svg/chevron-right.svg'
+  switch
+    when item.type == 'array' || item.type == 'map'
+      icon = "./bower_components/open-iconic/svg/chevron-#{if item.open then 'bottom' else 'right'}.svg"
 
-    h 'td', { onclick: -> item.toggleOpen() }, [
-      h 'img', { style: { width: '0.5em', height: '0.5em' }, src: icon }, ['']
-      span
-    ]
-
-renderValues = (item) ->
-  isTranslation = (item.type == 'translation')
-  for name in languageVM.names
-    if isTranslation
-      onchange = ->
-        item.texts[name] = @value
-      h 'td', [
-        h 'textarea', {onchange}, [item.texts[name] || '']
+      h 'td', { onclick: -> item.toggleOpen() }, [
+        h 'img', { style: { width: '0.5em', height: '0.5em' }, src: icon }, ['']
+        span
       ]
     else
-      h 'td', ['']
+      h 'td', [
+        h 'div', { style: { width: '0.5em', height: '0.5em' } }, ['']
+        span
+      ]
+
+renderValues = (item) ->
+  switch item.type
+    when 'translation'
+      languageVM.names.map (name) ->
+        h 'td', [
+          h 'textarea', onchange: (-> item.texts[name] = @value), item.texts[name]
+        ]
+    when 'inconsistency'
+      languageVM.names.map (name) ->
+        h 'td', '構造が矛盾しています'
+    else
+      languageVM.names.map (name) ->
+        h 'td'
 
 renderTree = (key, item, depth = 0) ->
-  rowType = if item.type == 'translation'
-    'tr'
-  else
-    'tr.pure-table-odd'
-
   row = h 'tr', [
     renderKey key, item, depth
     renderValues(item)...
