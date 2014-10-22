@@ -7,7 +7,6 @@ module.exports =
 class WindowVM
   constructor: ->
     @sideBar = new SideBarVM()
-    @states = []
 
     Object.defineProperty this, 'prevState',
       get: => @states[@states.length - 2]
@@ -16,7 +15,7 @@ class WindowVM
     Object.defineProperty this, 'title',
       get: => @currentState.title
 
-    @pushState {}, 'Home'
+    @clearStates()
 
   pushState: (vm, title) ->
     @states.push {vm, title}
@@ -30,3 +29,4 @@ class WindowVM
 
   clearStates: ->
     @states = []
+    @pushState {}, 'ホーム'

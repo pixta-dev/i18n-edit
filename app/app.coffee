@@ -18,6 +18,7 @@ class App extends EventEmitter
 
   setRootFolder: (@folder) -> do co =>
     @files = yield loadDir(@folder)
+    @windowVM.clearStates()
     @update()
 
 module.exports = new App()
