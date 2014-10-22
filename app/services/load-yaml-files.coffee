@@ -6,12 +6,6 @@ _ = require 'lodash'
 
 util = require '../util'
 
-languageVM = require '../view-models/language-vm'
-TranslationVM = require '../view-models/translation-vm'
-MapVM = require '../view-models/map-vm'
-ArrayVM = require '../view-models/array-vm'
-FileVM = require '../view-models/file-vm'
-
 langBeforeLeaf = (lang, yaml) ->
   switch
     when _.isPlainObject yaml
@@ -32,6 +26,7 @@ treeToVM = (tree) ->
     when _.isPlainObject tree
       new MapVM _.mapValues tree, treeToVM
 
+module.exports =
 loadYAMLFiles = (dir, name, files) -> co ->
   tree = {}
   time = new Date().getTime()
@@ -44,4 +39,8 @@ loadYAMLFiles = (dir, name, files) -> co ->
   console.log "#{new Date().getTime() - time} ms elapsed"
   new FileVM(dir, name, root)
 
-module.exports = loadYAMLFiles
+languageVM = require '../view-models/language-vm'
+TranslationVM = require '../view-models/translation-vm'
+MapVM = require '../view-models/map-vm'
+ArrayVM = require '../view-models/array-vm'
+FileVM = require '../view-models/file-vm'
