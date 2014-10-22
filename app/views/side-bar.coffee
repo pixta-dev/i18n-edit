@@ -1,10 +1,17 @@
 'use strict'
 
 h = require 'virtual-dom/h'
+_ = require 'lodash'
+
+visibleIf = (cond, node) ->
+  unless cond
+    node.properties = _.merge({}, node.properties, {style: {display: 'none'}})
+  node
+
 
 module.exports =
 renderSideBar = (sideBarVM) ->
-  h 'aside', [
+  visibleIf sideBarVM.open, h 'aside', [
     h 'section', [
       h 'a', onclick: (-> sideBarVM.showAllFiles()), ['ファイル一覧']
     ]

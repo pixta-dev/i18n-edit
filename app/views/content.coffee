@@ -17,3 +17,5 @@ renderContent = (contentVM) ->
       renderTranslation contentVM
     when 'search'
       renderSearch contentVM
+    else
+      h 'div'
