@@ -4,4 +4,4 @@ h = require 'virtual-dom/h'
 
 module.exports =
 renderTranslation = (translationVM) ->
-  h 'div', ['']
+  h 'div'

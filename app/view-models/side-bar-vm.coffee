@@ -22,13 +22,12 @@ class SideBarVM
     dialog.setAttribute('nwdirectory', '')
     dialog.onchange = =>
       @folder = dialog.value
-      #app.setRootFolder(@folder)
-      app.update()
+      app.setRootFolder(@folder)
 
     dialog.click()
 
   showAllFiles: ->
-    app.windowVM.pushState new FileTreeVM(app.files)
+    app.windowVM.pushState new FileTreeVM(app.folder, app.files), 'ファイル一覧'
 
   toggleOpen: ->
     @open = !@open

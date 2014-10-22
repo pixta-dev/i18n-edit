@@ -7,6 +7,8 @@ EventEmitter = (require 'events').EventEmitter
 class App extends EventEmitter
   start: ->
     @windowVM = new WindowVM()
+    @files = []
+    @folder = ''
 
   update: ->
     @emit 'update'
@@ -14,7 +16,12 @@ class App extends EventEmitter
   render: ->
     renderWindow(@windowVM)
 
+  setRootFolder: (@folder) -> do co =>
+    @files = yield loadDir(@folder)
+    @update()
+
 module.exports = new App()
 
+loadDir = require './services/load-dir'
 renderWindow = require './views/window'
 WindowVM = require './view-models/window-vm'

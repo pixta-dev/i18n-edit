@@ -23,5 +23,10 @@ class WindowVM
     @contentVM = vm
     app.update()
 
+  popState: ->
+    if @states.length >= 2
+      @states.pop()
+    app.update()
+
   clearStates: ->
     @states = []
