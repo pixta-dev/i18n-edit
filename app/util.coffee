@@ -16,3 +16,6 @@ module.exports =
     data = yaml.safeDump(obj)
     mkpath path.dirname(filePath)
     yield thunkify(fs.writeFile) filePath, data
+
+  computedProperty: (klass, name, func) ->
+    Object.defineProperty klass::, name, get: func

@@ -2,6 +2,5 @@
 
 module.exports =
 class SearchVM
+  type: 'search'
   constructor: (@key, @value) ->
-
-SearchVM::type = 'search'

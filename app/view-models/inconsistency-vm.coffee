@@ -1,6 +1,5 @@
 
 module.exports =
 class InconsistencyVM
+  type: 'inconsistency'
   constructor: (@trees) ->
-
-InconsistencyVM::type = 'inconsistency'

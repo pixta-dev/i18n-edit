@@ -2,19 +2,16 @@
 
 app = require '../app'
 SideBarVM = require './side-bar-vm'
+computed = (require '../util').computedProperty
 
 module.exports =
 class WindowVM
+  computed @, 'prevState', -> @states[@states.length - 2]
+  computed @, 'currentState', -> @states[@states.length - 1]
+  computed @, 'title', -> @currentState.title
+
   constructor: ->
     @sideBar = new SideBarVM()
-
-    Object.defineProperty this, 'prevState',
-      get: => @states[@states.length - 2]
-    Object.defineProperty this, 'currentState',
-      get: => @states[@states.length - 1]
-    Object.defineProperty this, 'title',
-      get: => @currentState.title
-
     @clearStates()
 
   pushState: (vm, title) ->
