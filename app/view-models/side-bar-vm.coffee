@@ -16,8 +16,16 @@ class SideBarVM
   search: ->
     app.windowVM.pushState new SearchVM(@searchKey, @searchValue)
 
-  changeFolder: ->
-    app.setRootFolder(@folder)
+  selectFolder: ->
+    dialog = document.createElement('input')
+    dialog.type = 'file'
+    dialog.setAttribute('nwdirectory', '')
+    dialog.onchange = =>
+      @folder = dialog.value
+      #app.setRootFolder(@folder)
+      app.update()
+
+    dialog.click()
 
   showAllFiles: ->
     app.windowVM.pushState new FileTreeVM(app.files)

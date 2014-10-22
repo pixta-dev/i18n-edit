@@ -8,7 +8,6 @@ visibleIf = (cond, node) ->
     node.properties = _.merge({}, node.properties, {style: {display: 'none'}})
   node
 
-
 module.exports =
 renderSideBar = (sideBarVM) ->
   visibleIf sideBarVM.open, h 'aside', [
@@ -26,6 +25,6 @@ renderSideBar = (sideBarVM) ->
     h 'section', [
       h 'label', ['フォルダ']
       h 'p', [sideBarVM.folder]
-      h 'button', onclick: (-> sideBarVM.changeFolder()), ['変更']
+      h 'button', onclick: (-> sideBarVM.selectFolder()), ['変更']
     ]
   ]
