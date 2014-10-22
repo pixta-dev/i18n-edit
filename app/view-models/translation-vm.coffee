@@ -4,4 +4,5 @@ module.exports =
 class TranslationVM
 
   constructor: (@texts) ->
-    @type = 'translation'
+
+TranslationVM::type = 'translation'

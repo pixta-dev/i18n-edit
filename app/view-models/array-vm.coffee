@@ -7,4 +7,5 @@ class ArrayVM extends CollapsibleVM
 
   constructor: (@children) ->
     super()
-    @type = 'array'
+    
+ArrayVM::type = 'array'

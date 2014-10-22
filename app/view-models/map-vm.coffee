@@ -7,4 +7,5 @@ class MapVM extends CollapsibleVM
 
   constructor: (@children) ->
     super()
-    @type = 'map'
+
+MapVM::type = 'map'
