@@ -20,14 +20,18 @@ dumpYAMLFromVM = (lang, vm) ->
         vm.texts[lang]
   dump vm
 
-dumpYAMLFiles = (path, fileVM) -> co ->
+dumpYAMLFiles = (dir, name, fileVM) -> co ->
   langs = languageVM.names
   for lang in langs
     yaml = dumpYAMLFromVM lang, fileVM.root
     yamlWithLang = {}
     yamlWithLang[lang] = yaml
 
-    filePath = "#{path}.#{lang}.yml"
+    fileName = if name? && name.length >= 1
+      "#{name}.#{lang}.yml"
+    else
+      "#{lang}.yml"
+    filePath = path.join(dir, fileName)
     yield util.dumpYAMLFile(yamlWithLang, filePath)
 
 module.exports = dumpYAMLFiles

@@ -26,5 +26,7 @@ renderSideBar = (sideBarVM) ->
       h 'label', 'フォルダ'
       h 'p', sideBarVM.folder
       h 'button', onclick: (-> sideBarVM.selectFolder()), '変更'
+      visibleIf sideBarVM.folder != '', h 'button', onclick: (-> sideBarVM.reloadAll()), '全リロード'
+      h 'button', onclick: (-> sideBarVM.saveAll()), '全保存'
     ]
   ]

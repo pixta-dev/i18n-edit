@@ -24,7 +24,7 @@ describe 'dumpYAMLFiles', ->
       mockFs
         mock: {}
 
-      yield dumpYAML('mock/test', fileVM)
+      yield dumpYAML 'mock', 'test', fileVM
       actual = yield util.loadYAMLFile "mock/test.#{lang}.yml"
       mockFs.restore()
 

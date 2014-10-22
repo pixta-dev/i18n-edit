@@ -21,6 +21,10 @@ class App extends EventEmitter
     @windowVM.clearStates()
     @update()
 
+  saveAll: ->
+    for file in @files
+      file.save()
+
 module.exports = new App()
 
 loadDir = require './services/load-dir'
