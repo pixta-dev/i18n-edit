@@ -11,3 +11,6 @@ class FileVM
     yield dumpYAML @dir, @name, this
 
 FileVM::type = 'file'
+
+Object.defineProperty FileVM::, 'title',
+  get: -> @dir + @name

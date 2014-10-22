@@ -18,6 +18,7 @@ class WindowVM
     @clearStates()
 
   pushState: (vm, title) ->
+    title ?= vm.title
     @states.push {vm, title}
     @contentVM = vm
     app.update()
