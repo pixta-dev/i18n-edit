@@ -11,13 +11,15 @@ ArrayVM = require '../view-models/array-vm'
 
 dumpYAMLFromVM = (lang, vm) ->
   dump = (vm) ->
-    switch vm.constructor
-      when ArrayVM
+    switch vm.type
+      when 'array'
         vm.children.map dump
-      when MapVM
+      when 'map'
         _.mapValues vm.children, dump
-      when TranslationVM
+      when 'translation'
         vm.texts[lang]
+      when 'inconsistency'
+        dump vm.trees[lang]
   dump vm
 
 dumpYAMLFiles = (dir, name, fileVM) -> co ->

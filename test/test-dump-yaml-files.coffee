@@ -15,7 +15,7 @@ describe 'dumpYAMLFiles', ->
 
   beforeEach co ->
     files = ['en', 'ja'].map (lang) ->
-      path.join(__dirname, "fixtures/test.#{lang}.yml")
+      path.join(__dirname, "fixtures/rails-i18n/rails-i18n.#{lang}.yml")
     fileVM = yield loadYAML path.join(__dirname, "fixtures"), 'test', files
 
   ['en', 'ja'].forEach (lang) ->
@@ -28,5 +28,5 @@ describe 'dumpYAMLFiles', ->
       actual = yield util.loadYAMLFile "mock/test.#{lang}.yml"
       mockFs.restore()
 
-      expected = yield util.loadYAMLFile path.join(__dirname, "fixtures/test.#{lang}.yml")
+      expected = yield util.loadYAMLFile path.join(__dirname, "fixtures/rails-i18n/rails-i18n.#{lang}.yml")
       assert.deepEqual actual, expected
