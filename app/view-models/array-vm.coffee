@@ -8,3 +8,8 @@ class ArrayVM extends CollapsibleVM
 
   constructor: (@children) ->
     super()
+    for child in @children
+      child.parent = this
+
+  keyForChild: (child) ->
+    String(@children.indexOf(child))

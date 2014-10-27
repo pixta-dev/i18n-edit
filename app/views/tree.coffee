@@ -2,16 +2,22 @@
 
 h = require 'virtual-dom/h'
 languageVM = require '../view-models/language-vm'
+app = require '../app'
 
 renderKey = (key, item, depth) ->
   span = h 'span', { style: { paddingLeft: "#{depth + 1}em" }}, [key]
 
-  switch
-    when item.type == 'array' || item.type == 'map'
+  switch item.type
+    when 'array', 'map'
       icon = "./bower_components/open-iconic/svg/chevron-#{if item.open then 'bottom' else 'right'}.svg"
 
       h 'td', { onclick: -> item.toggleOpen() }, [
         h 'img', { style: { width: '0.5em', height: '0.5em' }, src: icon }, ['']
+        span
+      ]
+    when 'translation'
+      h 'td', { onclick: -> app.windowVM.pushState item }, [
+        h 'div', { style: { width: '0.5em', height: '0.5em' } }, ['']
         span
       ]
     else
@@ -25,7 +31,7 @@ renderValues = (item, file) ->
     when 'translation'
       languageVM.names.map (name) ->
         h 'td', [
-          h 'textarea', onchange: (-> file.setText(item, name, @value)), item.texts[name]
+          h 'textarea', onchange: (-> item.setText(name, @value)), item.texts[name]
         ]
     when 'inconsistency'
       languageVM.names.map (name) ->

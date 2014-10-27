@@ -13,10 +13,7 @@ class FileVM
   computed @, 'title', -> path.relative(app.folder, @dir) + @name
 
   constructor: (@dir, @name, @root) ->
-
-  setText: (translation, lang, value) ->
-    translation.texts[lang] = value
-    @save(lang)
+    @root.file = this
 
   save: (lang) -> do co =>
     yield dumpYAML @dir, @name, this, [lang]
