@@ -22,8 +22,8 @@ dumpYAMLFromVM = (lang, vm) ->
         dump vm.trees[lang]
   dump vm
 
-dumpYAMLFiles = (dir, name, fileVM) -> co ->
-  langs = languageVM.names
+dumpYAMLFiles = (dir, name, fileVM, langs) -> co ->
+  langs ?= languageVM.names
   for lang in langs
     yaml = dumpYAMLFromVM lang, fileVM.root
     yamlWithLang = {}

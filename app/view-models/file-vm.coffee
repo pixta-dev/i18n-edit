@@ -12,5 +12,9 @@ class FileVM
 
   constructor: (@dir, @name, @root) ->
 
-  save: -> do co =>
-    yield dumpYAML @dir, @name, this
+  setText: (translation, lang, value) ->
+    translation.texts[lang] = value
+    @save(lang)
+
+  save: (lang) -> do co =>
+    yield dumpYAML @dir, @name, this, [lang]

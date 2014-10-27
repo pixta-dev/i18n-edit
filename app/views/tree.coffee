@@ -20,12 +20,12 @@ renderKey = (key, item, depth) ->
         span
       ]
 
-renderValues = (item) ->
+renderValues = (item, file) ->
   switch item.type
     when 'translation'
       languageVM.names.map (name) ->
         h 'td', [
-          h 'textarea', onchange: (-> item.texts[name] = @value), item.texts[name]
+          h 'textarea', onchange: (-> file.setText(item, name, @value)), item.texts[name]
         ]
     when 'inconsistency'
       languageVM.names.map (name) ->
@@ -34,18 +34,18 @@ renderValues = (item) ->
       languageVM.names.map (name) ->
         h 'td'
 
-renderTree = (key, item, depth = 0) ->
+renderTree = (key, item, file, depth = 0) ->
   row = h 'tr', [
     renderKey key, item, depth
-    renderValues(item)...
+    renderValues(item, file)...
   ]
   subtrees =
     if item.open
       switch item.type
         when 'array'
-          renderTree index.toString(), child, depth + 1 for child, index in item.children
+          renderTree index.toString(), child, file, depth + 1 for child, index in item.children
         when 'map'
-          renderTree childKey, child, depth + 1 for childKey, child of item.children
+          renderTree childKey, child, file, depth + 1 for childKey, child of item.children
   subtrees ?= []
   [].concat([row], subtrees...)
 

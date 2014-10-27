@@ -29,9 +29,6 @@ class SideBarVM
   reloadAll: ->
     app.setRootFolder(@folder)
 
-  saveAll: ->
-    app.saveAll()
-
   showAllFiles: ->
     app.windowVM.pushState new FileTreeVM(app.folder, app.files), 'ファイル一覧'
 
