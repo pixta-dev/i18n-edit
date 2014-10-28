@@ -6,7 +6,6 @@ languageVM = require '../view-models/language-vm'
 
 module.exports = (fileVM) ->
   h 'section', [
-    h 'h1', ['File']
     h 'table.pure-table', [
       h 'thead', [
         h 'tr', [
