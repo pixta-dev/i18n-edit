@@ -4,6 +4,9 @@
 @color-font-light: #FFFFFF;
 @color-font-semilight: #F0F0F0;
 
+@header-height: 3rem;
+@side-bar-width: 20rem;
+
 html {
   font-size: 16px;
   font-family: 'Helvetica';
@@ -19,14 +22,6 @@ a {
   cursor: pointer;
 }
 
-.rows {
-  margin: 0;
-  display: flex;
-  flex-flow: row;
-  align-items: stretch;
-  padding-top: @header-height;
-}
-
 .clearfix {
   &:before, &:after {
     content: "";
@@ -37,12 +32,11 @@ a {
   }
 }
 
-@header-height: 4rem;
-
 .header {
   width: 100%;
   height: @header-height;
   position: fixed;
+  z-index: 10;
   background-color: @color-dark;
   &__menu {
     position: absolute;
@@ -80,11 +74,11 @@ a {
 }
 
 .side-bar {
-  flex: 0;
-  min-width: 18rem;
-  min-height: 100vh;
+  position: fixed;
+  top: @header-height;
+  width: @side-bar-width;
+  height: 100vh;
   background-color: @color-semidark;
-  padding: 1rem 2rem;
 
   &__section {
     margin: 3rem 0rem;
@@ -93,6 +87,9 @@ a {
   &__link {
     font-size: 1rem;
     font-weight: bold;
+  }
+  &__content {
+    margin: 1rem 2rem;
   }
 }
 
@@ -124,6 +121,8 @@ a {
 }
 
 .content {
-  flex: 1;
+  position: absolute;
+  left: @side-bar-width;
+  top: @header-height;
   margin: 2rem;
 }
