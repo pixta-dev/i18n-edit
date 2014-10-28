@@ -78,17 +78,18 @@ th, td {
   }
 }
 
-.horizontal-line {
-  border: 0;
-  height: 1px;
-  background-color: @color-dark;
+.rows {
+  padding-top: @header-height;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
 }
 
 .side-bar {
-  position: fixed;
+  flex: 0;
   top: @header-height;
-  width: @side-bar-width;
-  height: 100vh;
+  min-width: @side-bar-width;
+  min-height: 100vh;
   background-color: @color-semidark;
 
   &__section {
@@ -100,7 +101,9 @@ th, td {
     font-weight: bold;
   }
   &__content {
-    margin: 1rem 2rem;
+    position: fixed;
+    width: @side-bar-width - 4rem;
+    padding: 1rem 2rem;
   }
 }
 
@@ -111,6 +114,17 @@ th, td {
   }
   input {
   }
+}
+
+.content {
+  flex: 1;
+  margin: 2rem;
+}
+
+.horizontal-line {
+  border: 0;
+  height: 1px;
+  background-color: @color-dark;
 }
 
 .button {
@@ -129,11 +143,4 @@ th, td {
 .folder-view {
   font-family: monospace;
   word-wrap: break-word;
-}
-
-.content {
-  position: absolute;
-  left: @side-bar-width;
-  top: @header-height;
-  margin: 2rem;
 }

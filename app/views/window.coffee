@@ -20,9 +20,11 @@ renderWindow = (windowVM) ->
       ]
       h 'h1.header__title', windowVM.title
     ]
-    renderSideBar windowVM.sideBar
-    h 'article.content', [
-      (renderBack windowVM)...
-      renderContent windowVM.currentState.vm
+    h 'div.rows', [
+      renderSideBar windowVM.sideBar
+      h 'article.content', [
+        (renderBack windowVM)...
+        renderContent windowVM.currentState.vm
+      ]
     ]
   ]
