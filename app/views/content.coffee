@@ -8,7 +8,7 @@ renderSearch = require './search'
 
 module.exports =
 renderContent = (contentVM) ->
-  switch contentVM.type
+  content = switch contentVM.type
     when 'file'
       renderFile contentVM
     when 'fileTree'

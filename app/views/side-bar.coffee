@@ -10,22 +10,26 @@ visibleIf = (cond, node) ->
 
 module.exports =
 renderSideBar = (sideBarVM) ->
-  visibleIf sideBarVM.open, h 'aside', [
-    h 'section', [
-      h 'a', onclick: (-> sideBarVM.showAllFiles()), 'ファイル一覧'
+  visibleIf sideBarVM.open, h 'aside.side-bar', [
+    h 'section.side-bar__section', [
+      h 'a.side-bar__link', onclick: (-> sideBarVM.showAllFiles()), 'ファイル一覧'
     ]
-    h 'hr'
-    h 'section', [
-      h 'label', 'キー'
-      h 'input', value: sideBarVM.searchKey, onchange: (-> sideBarVM.searchKey = @value)
-      h 'label', '値'
-      h 'input', value: sideBarVM.searchValue, onchange: (-> sideBarVM.searchValue = @value)
-      h 'button', onclick: (-> sideBarVM.search()), '検索'
+    h 'hr.horizontal-line'
+    h 'section.side-bar__section', [
+      h 'div.form-line', [
+        h 'label', for: 'searchKey', 'キー'
+        h 'input', name: 'searchKey', value: sideBarVM.searchKey, onchange: (-> sideBarVM.searchKey = @value)
+      ]
+      h 'div.form-line', [
+        h 'label', for: 'searchValue', '値'
+        h 'input', name: 'searchValue', value: sideBarVM.searchValue, onchange: (-> sideBarVM.searchValue = @value)
+      ]
+      h 'input.button', type: 'submit', onclick: (-> sideBarVM.search()), value: '検索'
     ]
-    h 'section', [
+    h 'section.side-bar__section', [
       h 'label', 'フォルダ'
-      h 'p', sideBarVM.folder
-      h 'button', onclick: (-> sideBarVM.selectFolder()), '変更'
-      visibleIf sideBarVM.folder != '', h 'button', onclick: (-> sideBarVM.reloadAll()), '全リロード'
+      h 'p.folder-view', sideBarVM.folder
+      h 'button.button', onclick: (-> sideBarVM.selectFolder()), '変更'
+      visibleIf sideBarVM.folder != '', h 'button.button', onclick: (-> sideBarVM.reloadAll()), '全リロード'
     ]
   ]

@@ -13,12 +13,16 @@ renderBack = (windowVM) ->
 
 module.exports =
 renderWindow = (windowVM) ->
-  h 'section', [
-    h 'header', [
-      h 'a', onclick: (-> windowVM.sideBar.toggleOpen()), 'Menu'
-      h 'h1', windowVM.title
+  h 'section.root', [
+    h 'header.header', [
+      h 'button.header__menu', onclick: (-> windowVM.sideBar.toggleOpen()), [
+        h 'span.oi', dataset: {glyph: 'menu'}
+      ]
+      h 'h1.header__title', windowVM.title
     ]
     renderSideBar windowVM.sideBar
-    (renderBack windowVM)...
-    renderContent windowVM.currentState.vm
+    h 'article.content', [
+      (renderBack windowVM)...
+      renderContent windowVM.currentState.vm
+    ]
   ]
