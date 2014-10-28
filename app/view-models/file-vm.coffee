@@ -10,7 +10,7 @@ module.exports =
 class FileVM
   type: 'file'
 
-  computed @, 'title', -> path.relative(app.folder, @dir) + @name
+  computed @, 'title', -> path.join(path.relative(app.folder, @dir), @name)
 
   constructor: (@dir, @name, @root) ->
     @root.file = this
