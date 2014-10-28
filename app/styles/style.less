@@ -4,13 +4,9 @@
 @color-font-light: #FFFFFF;
 @color-font-semilight: #F0F0F0;
 
-html, body {
-  height: 100%;
-  font-family: 'Helvetica';
-}
-
 html {
   font-size: 16px;
+  font-family: 'Helvetica';
 }
 
 button {
@@ -23,9 +19,12 @@ a {
   cursor: pointer;
 }
 
-.root {
-  height: 100%;
+.rows {
   margin: 0;
+  display: flex;
+  flex-flow: row;
+  align-items: stretch;
+  padding-top: @header-height;
 }
 
 .clearfix {
@@ -43,7 +42,7 @@ a {
 .header {
   width: 100%;
   height: @header-height;
-  position: relative;
+  position: fixed;
   background-color: @color-dark;
   &__menu {
     position: absolute;
@@ -81,10 +80,10 @@ a {
 }
 
 .side-bar {
-  float: left;
+  flex: 0;
+  min-width: 18rem;
+  min-height: 100vh;
   background-color: @color-semidark;
-  width: 18rem;
-  height: 100%;
   padding: 1rem 2rem;
 
   &__section {
@@ -125,6 +124,6 @@ a {
 }
 
 .content {
-  height: 100%;
-  overflow: hidden;
+  flex: 1;
+  margin: 2rem;
 }
