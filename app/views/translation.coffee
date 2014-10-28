@@ -6,7 +6,7 @@ app = require '../app'
 module.exports =
 renderTranslation = (translationVM) ->
   h 'section', [
-    h 'dl', [
+    h 'dl.translation-description', [
       h 'dt', 'パス'
       h 'dd', translationVM.path
       h 'dt', 'ファイル'
