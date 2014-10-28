@@ -1,6 +1,7 @@
 'use strict'
 
 h = require 'virtual-dom/h'
+app = require '../app'
 
 module.exports =
 renderSearch = (searchVM) ->
@@ -15,10 +16,14 @@ renderSearch = (searchVM) ->
       (searchVM.results.map (result) ->
         debugger
         h 'tr', [
-          h 'td', result.fullKey
+          h 'td', [
+            h 'a', onclick: (-> app.windowVM.pushState result.translation), result.fullKey
+          ]
           h 'td', result.text
           h 'td', result.language
-          h 'td', result.file.title
+          h 'td', [
+            h 'a', onclick: (-> app.windowVM.pushState result.file), result.file.title
+          ]
         ]
       )...
     ]
