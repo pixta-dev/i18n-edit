@@ -5,25 +5,25 @@ languageVM = require '../view-models/language-vm'
 app = require '../app'
 
 renderKey = (key, item, depth) ->
-  span = h 'span', { style: { paddingLeft: "#{depth + 1}em" }}, [key]
+  textStyle =
+    paddingLeft: "#{depth + 1}em"
 
   switch item.type
     when 'array', 'map'
-      icon = "./bower_components/open-iconic/svg/chevron-#{if item.open then 'bottom' else 'right'}.svg"
-
-      h 'td', { onclick: -> item.toggleOpen() }, [
-        h 'img', { style: { width: '0.5em', height: '0.5em' }, src: icon }, ['']
-        span
+      icon = if item.open then 'chevron-bottom' else 'chevron-right'
+      h 'td', [
+        h 'span.oi.toggle-open-button', dataset: {glyph: icon}
+        h 'a', onclick: (-> item.toggleOpen()), style: textStyle, key
       ]
     when 'translation'
-      h 'td', { onclick: -> app.windowVM.pushState item }, [
-        h 'div', { style: { width: '0.5em', height: '0.5em' } }, ['']
-        span
+      h 'td', [
+        h 'div.toggle-open-button'
+        h 'a', onclick: (-> app.windowVM.pushState item), style: textStyle, key
       ]
     else
       h 'td', [
-        h 'div', { style: { width: '0.5em', height: '0.5em' } }, ['']
-        span
+        h 'div.toggle-open-button'
+        h 'a', style: textStyle, key
       ]
 
 renderValues = (item, file) ->

@@ -19,7 +19,11 @@ button {
 }
 
 a {
+  color: @color-dark;
   cursor: pointer;
+  &:hover {
+    color: @color-darkest;
+  }
 }
 
 thead {
@@ -138,6 +142,12 @@ th, td {
   &:hover {
     background-color: @color-darkest;
   }
+}
+
+.toggle-open-button {
+  width: 0.5rem;
+  height: 0.5rem;
+  font-size: 0.5rem;
 }
 
 .folder-view {
