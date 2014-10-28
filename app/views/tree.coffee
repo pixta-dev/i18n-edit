@@ -12,8 +12,8 @@ renderKey = (key, item, depth) ->
     when 'array', 'map'
       icon = if item.open then 'chevron-bottom' else 'chevron-right'
       h 'td', [
-        h 'span.oi.toggle-open-button', dataset: {glyph: icon}
-        h 'a', onclick: (-> item.toggleOpen()), style: textStyle, key
+        h 'span.oi.toggle-open-button.tree-table__directory', dataset: {glyph: icon}
+        h 'a.tree-table__directory', onclick: (-> item.toggleOpen()), style: textStyle, key
       ]
     when 'translation'
       h 'td', [
@@ -23,7 +23,7 @@ renderKey = (key, item, depth) ->
     else
       h 'td', [
         h 'div.toggle-open-button'
-        h 'a', style: textStyle, key
+        h 'span.tree-table__directory', style: textStyle, key
       ]
 
 renderValues = (item, file) ->

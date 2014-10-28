@@ -1,6 +1,7 @@
 @color-darkest: #000000;
 @color-dark: #404040;
-@color-semidark: #EAEAEA;
+@color-semidark: #808080;
+@color-lightgray: #EAEAEA;
 @color-font-light: #FFFFFF;
 @color-font-semilight: #F0F0F0;
 
@@ -94,7 +95,7 @@ th, td {
   top: @header-height;
   min-width: @side-bar-width;
   min-height: 100vh;
-  background-color: @color-semidark;
+  background-color: @color-lightgray;
 
   &__section {
     margin: 3rem 0rem;
@@ -168,5 +169,14 @@ th, td {
   }
   dd {
     height: 3rem;
+  }
+}
+
+.tree-table {
+  &__directory {
+    color: @color-semidark;
+    &:hover {
+      color: @color-dark;
+    }
   }
 }
