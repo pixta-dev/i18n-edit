@@ -7,10 +7,13 @@ class YAMLItemVM
   Object.defineProperty @::, 'path',
     get: ->
       path = if @parent?
-        "#{@parent.path}.#{@parent.keyForChild(this)}"
+        parentPath = @parent.path
+        if parentPath == ''
+          @parent.keyForChild(this)
+        else
+          "#{@parent.path}.#{@parent.keyForChild(this)}"
       else
         ''
-      path.slice(1)
 
   Object.defineProperty @::, 'file',
     get: ->
