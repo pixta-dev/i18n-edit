@@ -5,6 +5,7 @@ co = require 'co'
 dumpYAML = require '../services/dump-yaml-files'
 computed = (require '../util').computedProperty
 app = require '../app'
+langs = (require './language-vm').names
 
 module.exports =
 class FileVM
@@ -17,3 +18,6 @@ class FileVM
 
   save: (lang) -> do co =>
     yield dumpYAML @dir, @name, this, [lang]
+
+  saveAll: -> do co =>
+    yield dumpYAML @dir, @name, this, langs

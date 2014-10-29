@@ -3,7 +3,7 @@
 app = require '../app'
 CollapsibleVM = require './collapsible-vm'
 TranslationVM = require './translation-vm'
-gui = global.window.nwDispatcher.requireNwGui()
+gui = require '../gui'
 
 module.exports =
 class MapVM extends CollapsibleVM
@@ -34,17 +34,14 @@ class MapVM extends CollapsibleVM
         throw new Error('Unimplemented type')
     child.parent = this
     @children[key] = child
-    console.log 'key added'
+    @file.saveAll()
 
   removeKey: (key) ->
     delete @children[key]
 
-  showMenu: (x, y) ->
-    console.log 'menu'
-    menu = new gui.Menu()
-
+  createMenuItems: ->
     createMenu = (label, type) =>
-      menu.append new gui.MenuItem
+      new gui.MenuItem
         label: label
         click: =>
           app.windowVM.dialog =
@@ -55,8 +52,8 @@ class MapVM extends CollapsibleVM
               @addKey(value, type)
               app.update()
           app.update()
-
-    createMenu 'グループ追加', 'map'
-    createMenu 'キー追加', 'translation'
-
-    menu.popup(x, y)
+    [
+      super()...
+      createMenu 'グループ追加', 'map'
+      createMenu 'キー追加', 'translation'
+    ]

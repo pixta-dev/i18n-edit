@@ -17,9 +17,7 @@ renderKey = (key, item, depth) ->
         h 'div.toggle-open-button'
 
     switch item.type
-      when 'array'
-        h 'a.tree-table__directory', onclick: (-> item.toggleOpen()), style: textStyle, key
-      when 'map'
+      when 'array', 'map'
         onmousedown = ->
           e = window.event
           switch e.which
@@ -30,7 +28,15 @@ renderKey = (key, item, depth) ->
           false
         h 'a.tree-table__directory', {onmousedown, style: textStyle}, key
       when 'translation'
-        h 'a', onclick: (-> app.windowVM.pushState item), style: textStyle, key
+        onmousedown = ->
+          e = window.event
+          switch e.which
+            when 1
+              app.windowVM.pushState item
+            when 3
+              item.showMenu(e.clientX, e.clientY)
+          false
+        h 'a', onmousedown: onmousedown, style: textStyle, key
       else
         h 'span.tree-table__directory', style: textStyle, key
   ]

@@ -29,10 +29,6 @@ class App extends EventEmitter
   reloadAll: ->
     @setRootFolder @folder
 
-  saveAll: ->
-    for file in @files
-      file.save()
-
 module.exports = new App()
 
 loadDir = require './services/load-dir'
