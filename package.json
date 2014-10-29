@@ -44,5 +44,9 @@
     "url": "https://github.com/pixta-dev/i18n-edit/issues"
   },
   "homepage": "https://github.com/pixta-dev/i18n-edit",
-  "private": true
+  "private": true,
+  "window": {
+    "width": 1024,
+    "height": 768
+  }
 }
