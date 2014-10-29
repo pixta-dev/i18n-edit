@@ -16,7 +16,7 @@ searchItem = (file, item, baseKey, keyPattern, valuePattern) ->
         result = []
         key = baseKey.slice(1)
         for own lang, value of item.texts
-          if keyPattern?.test key || valuePattern?.test value
+          if (keyPattern?.test(key) || !keyPattern?) && (valuePattern?.test(value) || !valuePattern?)
             result.push new SearchResultVM(file, item, key, lang)
         result
       else

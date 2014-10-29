@@ -7,7 +7,13 @@ module.exports =
 class SearchVM
   type: 'search'
   constructor: (@key, @value) ->
-    @results = search app.files, {key: new RegExp(@key), value: new RegExp(@value)}
+    pattern = {}
+    unless @key == ''
+      pattern.key = new RegExp(@key)
+    unless @value == ''
+      pattern.value = new RegExp(@value)
+
+    @results = search app.files, pattern
     @title = "検索"
     if key?
       @title += " キー: '#{key}'"

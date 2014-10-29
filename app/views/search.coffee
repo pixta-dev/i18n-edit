@@ -14,12 +14,11 @@ renderSearch = (searchVM) ->
         h 'th', 'ファイル'
       ]
       (searchVM.results.map (result) ->
-        debugger
         h 'tr', [
           h 'td', [
             h 'a', onclick: (-> app.windowVM.pushState result.translation), result.fullKey
           ]
-          h 'td', result.text
+          h 'td', String(result.text)
           h 'td', result.language
           h 'td', [
             h 'a', onclick: (-> app.windowVM.pushState result.file), result.file.title
