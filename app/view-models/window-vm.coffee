@@ -16,14 +16,17 @@ class WindowVM
 
   pushState: (vm, title) ->
     title ?= vm.title
-    @states.push {vm, title}
+    scroll = [window.scrollX, window.scrollY]
+    window.scroll(0, 0)
+    @states.push {vm, title, scroll}
     @contentVM = vm
     app.update()
 
   popState: ->
     if @states.length >= 2
-      @states.pop()
-    app.update()
+      state = @states.pop()
+      window.scroll(state.scroll...)
+      app.update()
 
   clearStates: ->
     @states = []
