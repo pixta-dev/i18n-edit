@@ -7,11 +7,13 @@ FileTreeVM = require './file-tree-vm'
 module.exports =
 class SideBarVM
 
+  Object.defineProperty @::, 'folder',
+    get: -> app.folder
+
   constructor: ->
     @open = true
     @searchKey = ''
     @searchValue = ''
-    @folder = ''
 
   search: ->
     app.windowVM.pushState new SearchVM(@searchKey, @searchValue)
@@ -21,13 +23,12 @@ class SideBarVM
     dialog.type = 'file'
     dialog.setAttribute('nwdirectory', '')
     dialog.onchange = =>
-      @folder = dialog.value
-      @reloadAll()
+      app.setRootFolder dialog.value
 
     dialog.click()
 
   reloadAll: ->
-    app.setRootFolder(@folder)
+    app.reloadAll()
 
   showAllFiles: ->
     app.windowVM.pushState new FileTreeVM(app.folder, app.files), 'ファイル一覧'

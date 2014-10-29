@@ -10,6 +10,10 @@ class App extends EventEmitter
     @files = []
     @folder = ''
 
+    folder = window.localStorage.rootFolder
+    if folder
+      @setRootFolder(folder)
+
   update: ->
     @emit 'update'
 
@@ -17,9 +21,13 @@ class App extends EventEmitter
     renderWindow(@windowVM)
 
   setRootFolder: (@folder) -> do co =>
+    window.localStorage.rootFolder = @folder
     @files = yield loadDir(@folder)
     @windowVM.clearStates()
     @update()
+
+  reloadAll: ->
+    @setRootFolder @folder
 
   saveAll: ->
     for file in @files
