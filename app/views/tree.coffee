@@ -26,7 +26,7 @@ renderKey = (key, item, depth) ->
             when 1
               item.toggleOpen()
             when 3
-              item.showMenu(e.screenX, e.screenY)
+              item.showMenu(e.clientX, e.clientY)
           false
         h 'a.tree-table__directory', {onmousedown, style: textStyle}, key
       when 'translation'

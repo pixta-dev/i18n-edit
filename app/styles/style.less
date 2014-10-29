@@ -136,7 +136,8 @@ th, td {
   border: 0;
   background-color: @color-dark;
   color: @color-font-light;
-  padding: 0.2rem 1rem;
+  height: 2rem;
+  padding: 0 1rem;
   margin-right: 1rem;
   width: 7rem;
   outline: none;
@@ -183,4 +184,21 @@ th, td {
 
 .back-page {
   margin-bottom: 2rem;
+}
+
+.dialog-back {
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.dialog {
+  margin: 4rem auto;
+  padding: 2rem;
+  width: 20rem;
+  background-color: #FFF;
 }

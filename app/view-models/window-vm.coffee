@@ -13,6 +13,7 @@ class WindowVM
   constructor: ->
     @sideBar = new SideBarVM()
     @clearStates()
+    @dialog = null
 
   pushState: (vm, title) ->
     title ?= vm.title

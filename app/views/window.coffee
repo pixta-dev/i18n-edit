@@ -4,6 +4,7 @@ h = require 'virtual-dom/h'
 _ = require 'lodash'
 renderSideBar = require './side-bar'
 renderContent = require './content'
+renderDialog = require './dialog'
 
 renderBack = (windowVM) ->
   h '.back-page', if windowVM.prevState?
@@ -27,4 +28,9 @@ renderWindow = (windowVM) ->
         renderContent windowVM.currentState.vm
       ]
     ]
+    (if windowVM.dialog
+      [renderDialog windowVM.dialog]
+    else
+      []
+    )...
   ]
