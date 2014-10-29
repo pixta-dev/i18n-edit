@@ -1,3 +1,8 @@
 'use strict'
 
-module.exports = gui = global.window.nwDispatcher.requireNwGui()
+gui = if global.window?
+  global.window.nwDispatcher.requireNwGui()
+else
+  console.warn 'window not found'
+
+module.exports = gui
