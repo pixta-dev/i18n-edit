@@ -8,23 +8,32 @@ renderKey = (key, item, depth) ->
   textStyle =
     paddingLeft: "#{depth + 1}em"
 
-  switch item.type
-    when 'array', 'map'
-      icon = if item.open then 'chevron-bottom' else 'chevron-right'
-      h 'td', [
+  h 'td', [
+    switch item.type
+      when 'array', 'map'
+        icon = if item.open then 'chevron-bottom' else 'chevron-right'
         h 'span.oi.toggle-open-button.tree-table__directory', dataset: {glyph: icon}
+      else
+        h 'div.toggle-open-button'
+
+    switch item.type
+      when 'array'
         h 'a.tree-table__directory', onclick: (-> item.toggleOpen()), style: textStyle, key
-      ]
-    when 'translation'
-      h 'td', [
-        h 'div.toggle-open-button'
+      when 'map'
+        onmousedown = ->
+          e = window.event
+          switch e.which
+            when 1
+              item.toggleOpen()
+            when 3
+              item.showMenu(e.screenX, e.screenY)
+          false
+        h 'a.tree-table__directory', {onmousedown, style: textStyle}, key
+      when 'translation'
         h 'a', onclick: (-> app.windowVM.pushState item), style: textStyle, key
-      ]
-    else
-      h 'td', [
-        h 'div.toggle-open-button'
+      else
         h 'span.tree-table__directory', style: textStyle, key
-      ]
+  ]
 
 renderValues = (item, file) ->
   switch item.type
