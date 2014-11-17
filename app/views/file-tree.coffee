@@ -1,16 +1,16 @@
 'use strict'
 
 h = require 'virtual-dom/h'
+kup = require 'vtree-kup'
 app = require '../app'
 
-renderFiles = (items) ->
-  items.map (item) ->
-    h 'li', [
-      h 'a', onclick: (-> app.windowVM.pushState item.file), item.relativePath
-    ]
+renderFiles = (items) -> kup (k) ->
+  k.ul ->
+    items.forEach (item) ->
+      k.li ->
+        k.a onclick: (-> app.windowVM.pushState item.file), item.file.title
 
 module.exports =
-renderFileTree = (fileTreeVM) ->
-  h 'section', [
-    renderFiles(fileTreeVM.items)...
-  ]
+renderFileTree = (fileTreeVM) -> kup (k) ->
+  k.section ->
+    k.$add renderFiles(fileTreeVM.items)
