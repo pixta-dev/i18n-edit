@@ -9,6 +9,12 @@ patch = require 'virtual-dom/patch'
 createElement = require 'virtual-dom/create-element'
 app = require './app'
 
+if process.platform == 'darwin'
+  win = gui.Window.get();
+  nativeMenuBar = new gui.Menu type: "menubar"
+  nativeMenuBar.createMacBuiltin "My App"
+  win.menu = nativeMenuBar;
+
 window.onerror = (message, url, lineNumber, column, error) ->
   window.alert ("エラーが発生しました: " + error.message + "\n再起動します...")
   # Reload script (see https://groups.google.com/forum/#!topic/node-webkit/KI_ciowScNo)
