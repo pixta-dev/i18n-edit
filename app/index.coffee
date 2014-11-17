@@ -12,7 +12,7 @@ app = require './app'
 if process.platform == 'darwin'
   win = gui.Window.get();
   nativeMenuBar = new gui.Menu type: "menubar"
-  nativeMenuBar.createMacBuiltin "My App"
+  nativeMenuBar.createMacBuiltin "i18n-edit"
   win.menu = nativeMenuBar;
 
 window.onerror = (message, url, lineNumber, column, error) ->
