@@ -33,7 +33,7 @@ mergeTree = (a, b, langsA, langsB) ->
 
     when a.type == 'inconsistency'
       trees = _.merge {}, a.trees
-      for lang in langB
+      for lang in langsB
         trees[lang] = b
       new InconsistencyVM trees
 
@@ -65,21 +65,30 @@ module.exports =
 loadYAMLFiles = (dir, name, files) -> co ->
   time = new Date().getTime()
 
+  errors = []
+
   vms = []
   for file in files
-    yaml = yield util.loadYAMLFile(file)
+    try
+      yaml = yield util.loadYAMLFile(file)
+    catch error
+      errors.push "In #{file}: #{error.toString()}"
+      continue
     for lang, child of yaml
       languageVM.add lang
       vm = yamlToVM child, lang
       langs = [lang]
       vms.push [vm, langs]
 
+  if vms.length == 0
+    vms.push [new MapVM [], []]
+
   [vm, langs] = vms.reduce ([vm1, langs1], [vm2, langs2]) ->
     [mergeTree vm1, vm2, langs1, langs2, _.union langs1, langs2]
 
   console.log "#{new Date().getTime() - time} ms elapsed"
 
-  new FileVM(dir, name, vm)
+  new FileVM(dir, name, vm, errors)
 
 languageVM = require '../view-models/language-vm'
 TranslationVM = require '../view-models/translation-vm'

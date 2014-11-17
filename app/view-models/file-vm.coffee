@@ -13,7 +13,7 @@ class FileVM
 
   computed @, 'title', -> path.join(path.relative(app.folder, @dir), @name)
 
-  constructor: (@dir, @name, @root) ->
+  constructor: (@dir, @name, @root, @errors) ->
     @root.file = this
 
   save: (lang) -> do co =>

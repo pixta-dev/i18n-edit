@@ -3,7 +3,8 @@
   "main": "index.html",
   "js-flags": "--harmony",
   "window": {
-    "toolbar": true
+    "width": 1024,
+    "height": 768
   },
   "devDependencies": {
     "chai": "^1.9.2",
@@ -24,7 +25,8 @@
     "lodash": "^2.4.1",
     "mkpath": "^0.1.0",
     "thunkify": "^2.1.2",
-    "virtual-dom": "0.0.21"
+    "virtual-dom": "0.0.21",
+    "vtree-kup": "https://github.com/seanchas116/vtree-kup/archive/53d2a3ba4d7fde275dd768f7872dcf146b05d547.tar.gz"
   },
   "version": "0.0.1",
   "description": "Edit Rails i18n YAMLs with node-webkit UI",
@@ -44,9 +46,5 @@
     "url": "https://github.com/pixta-dev/i18n-edit/issues"
   },
   "homepage": "https://github.com/pixta-dev/i18n-edit",
-  "private": true,
-  "window": {
-    "width": 1024,
-    "height": 768
-  }
+  "private": true
 }
