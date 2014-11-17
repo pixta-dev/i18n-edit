@@ -95,10 +95,17 @@ th, td {
   top: @header-height;
   min-width: @side-bar-width;
   min-height: 100vh;
-  background-color: @color-lightgray;
+
+  &__frame {
+    position: fixed;
+    height: 100vh;
+    width: @side-bar-width - 4rem;
+    background-color: @color-lightgray;
+    padding: 2rem;
+  }
 
   &__section {
-    margin: 3rem 0rem;
+    margin: 2rem 0rem;
   }
 
   &__link {
@@ -106,9 +113,6 @@ th, td {
     font-weight: bold;
   }
   &__content {
-    position: fixed;
-    width: @side-bar-width - 4rem;
-    padding: 1rem 2rem;
   }
 }
 
