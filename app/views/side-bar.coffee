@@ -29,7 +29,7 @@ renderSideBar = (sideBarVM) ->
           h 'input.button', type: 'submit', onclick: (-> sideBarVM.search()), value: '検索'
         ]
         h 'section.side-bar__section', [
-          h 'label', 'フォルダ'
+          h 'label', 'フォルダ (例: /path/to/config/locales)'
           h 'p.folder-view', sideBarVM.folder
           h 'button.button', onclick: (-> sideBarVM.selectFolder()), '変更'
           visibleIf sideBarVM.folder != '', h 'button.button', onclick: (-> sideBarVM.reloadAll()), '全リロード'
