@@ -1,32 +1,28 @@
 'use strict'
 
 h = require 'virtual-dom/h'
+kup = require 'vtree-kup'
 app = require '../app'
+languageVM = require '../view-models/language-vm'
 
 module.exports =
-renderTranslation = (translationVM) ->
-  h 'section', [
-    h 'dl.translation-description', [
-      h 'dt', 'パス'
-      h 'dd', translationVM.path
-      h 'dt', 'ファイル'
-      h 'dd', [
-        h 'a', onclick: (-> app.windowVM.pushState translationVM.file), translationVM.file.title
-      ]
-    ]
-    h 'table', [
-      h 'thead', [
-        h 'th', '言語'
-        h 'th', '値'
-      ]
-      (Object.keys(translationVM.texts).map (lang) ->
+renderTranslation = (translationVM) -> kup (k) ->
+  k.section ->
+    k.dl '.translation-description', ->
+      k.dt 'パス'
+      k.dd translationVM.path
+      k.dt 'ファイル'
+      k.dd ->
+        k.a onclick: (-> app.windowVM.pushState translationVM.file), translationVM.file.title
+
+    k.table ->
+      k.thead ->
+        k.th '言語'
+        k.th '値'
+
+      languageVM.names.forEach (lang) ->
         text = translationVM.texts[lang]
-        h 'tr', [
-          h 'td', lang
-          h 'td', [
-            h 'textarea', onchange: (-> translationVM.setText(lang, @value)), text
-          ]
-        ]
-      )...
-    ]
-  ]
+        k.tr ->
+          k.td lang
+          k.td ->
+            k.textarea onchange: (-> translationVM.setText(lang, @value)), text
