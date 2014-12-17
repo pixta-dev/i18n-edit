@@ -17,7 +17,13 @@ class FileVM
     @root.file = this
 
   save: (lang) -> do co =>
-    yield dumpYAML @dir, @name, this, [lang]
+    try
+      yield dumpYAML @dir, @name, this, [lang]
+    catch
+      window.alert '保存に失敗しました。'
 
   saveAll: -> do co =>
-    yield dumpYAML @dir, @name, this, langs
+    try
+      yield dumpYAML @dir, @name, this, langs
+    catch
+      window.alert '保存に失敗しました。'
