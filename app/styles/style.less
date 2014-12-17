@@ -13,6 +13,13 @@ html {
   font-family: 'Helvetica';
 }
 
+.root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
 button {
   border: 0;
   background: none;
@@ -49,10 +56,9 @@ th, td {
 }
 
 .header {
+  flex-shrink: 0;
   width: 100%;
   height: @header-height;
-  position: fixed;
-  z-index: 10;
   background-color: @color-dark;
   &__menu {
     position: absolute;
@@ -84,25 +90,18 @@ th, td {
 }
 
 .rows {
-  padding-top: @header-height;
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
   align-items: stretch;
 }
 
 .side-bar {
-  flex: 0;
+  flex-shrink: 0;
   top: @header-height;
-  min-width: @side-bar-width;
-  min-height: 100vh;
-
-  &__frame {
-    position: fixed;
-    height: 100vh;
-    width: @side-bar-width - 4rem;
-    background-color: @color-lightgray;
-    padding: 2rem;
-  }
+  width: @side-bar-width;
+  background-color: @color-lightgray;
+  padding: 2rem;
 
   &__section {
     margin: 2rem 0rem;
@@ -126,8 +125,9 @@ th, td {
 }
 
 .content {
-  flex: 1;
-  margin: 2rem;
+  padding: 2rem;
+  overflow: scroll;
+  flex-grow: 1;
 }
 
 .horizontal-line {
