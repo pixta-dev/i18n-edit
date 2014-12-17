@@ -15,9 +15,13 @@ dumpYAMLFromVM = (lang, vm) ->
       when 'array'
         vm.children.map dump
       when 'map'
-        _.mapValues vm.children, dump
+        result = {}
+        for own key, child of vm.children
+          mapped = dump(child)
+          result[key] = mapped if mapped?
+        result
       when 'translation'
-        vm.texts[lang]
+        vm.texts[lang] ? null
       when 'inconsistency'
         dump vm.trees[lang]
   dump vm

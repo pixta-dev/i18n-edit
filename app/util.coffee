@@ -13,7 +13,9 @@ module.exports =
     yaml.safeLoad data
 
   dumpYAMLFile: (obj, filePath) -> co ->
-    data = yaml.safeDump(obj)
+    data = yaml.safeDump obj,
+      styles:
+        '!!null': ''
     mkpath path.dirname(filePath)
     yield thunkify(fs.writeFile) filePath, data
 
