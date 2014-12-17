@@ -8,20 +8,25 @@ loadYAML = require './load-yaml-files'
 
 module.exports =
 loadDir = (dir) -> co ->
-  paths = yield glob path.join(dir, '/**/*.yml')
+  try
+    paths = yield glob path.join(dir, '/**/*.yml')
 
-  allFiles = for filePath in paths
-    basename = path.basename filePath
-    dir = path.dirname filePath
+    allFiles = for filePath in paths
+      basename = path.basename filePath
+      dir = path.dirname filePath
 
-    tokens = basename.split('.')
-    name = tokens.slice(0, -2).join()
-    {name, dir, filePath}
+      tokens = basename.split('.')
+      name = tokens.slice(0, -2).join()
+      {name, dir, filePath}
 
-  fileVMs = []
+    fileVMs = []
 
-  for dir, filesByDir of _.groupBy(allFiles, ({dir}) -> dir)
-    for name, files of _.groupBy(filesByDir, ({name}) -> name)
-      fileVMs.push yield loadYAML dir, name, files.map ({filePath}) -> filePath
+    for dir, filesByDir of _.groupBy(allFiles, ({dir}) -> dir)
+      for name, files of _.groupBy(filesByDir, ({name}) -> name)
+        fileVMs.push yield loadYAML dir, name, files.map ({filePath}) -> filePath
 
-  fileVMs
+    fileVMs
+
+  catch error
+    window.alert "フォルダのロードに失敗しました: #{error}"
+    []
