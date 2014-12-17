@@ -45,8 +45,10 @@ renderValues = (item, file) ->
   switch item.type
     when 'translation'
       languageVM.names.map (name) ->
+        text = item.texts[name]
+        text ?= ''
         h 'td', [
-          h 'textarea', onchange: (-> item.setText(name, @value)), item.texts[name]
+          h 'textarea', onchange: (-> item.setText(name, @value)), text.toString()
         ]
     when 'inconsistency'
       languageVM.names.map (name) ->
