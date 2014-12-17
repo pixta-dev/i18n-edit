@@ -21,8 +21,14 @@ class App extends EventEmitter
     renderWindow(@windowVM)
 
   setRootFolder: (@folder) -> do co =>
+    try
+      files = yield loadDir(@folder)
+    catch error
+      window.alert "フォルダのロードに失敗しました: #{error}"
+      return
+
     window.localStorage.rootFolder = @folder
-    @files = yield loadDir(@folder)
+    @files = files
     @windowVM.clearStates()
     @update()
 
