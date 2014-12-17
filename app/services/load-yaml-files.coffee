@@ -84,7 +84,7 @@ loadYAMLFiles = (dir, name, files) -> co ->
     vms.push [new MapVM [], []]
 
   [vm, langs] = vms.reduce ([vm1, langs1], [vm2, langs2]) ->
-    [mergeTree vm1, vm2, langs1, langs2, _.union langs1, langs2]
+    [mergeTree(vm1, vm2, langs1, langs2), _.union(langs1, langs2)]
 
   console.log "#{new Date().getTime() - time} ms elapsed"
 
