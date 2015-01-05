@@ -38,7 +38,7 @@ deployFiles = [
   './bower_components/open-iconic/font/fonts/**/*'
 ]
 
-gulp.task 'package', ->
+gulp.task 'deploy', ->
   nw = new NwBuilder
     files: deployFiles
     platforms: ['win64', 'osx64']
