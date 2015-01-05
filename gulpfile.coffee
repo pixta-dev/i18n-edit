@@ -41,7 +41,7 @@ deployFiles = [
 gulp.task 'deploy', ->
   nw = new NwBuilder
     files: deployFiles
-    platforms: ['win64', 'osx64']
+    platforms: ['win32', 'osx64']
 
   nw.on 'log', (msg) ->
     gutil.log(msg)
