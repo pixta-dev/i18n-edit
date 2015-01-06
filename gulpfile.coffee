@@ -6,7 +6,11 @@ less = require 'gulp-less'
 plumber = require 'gulp-plumber'
 notify = require 'gulp-notify'
 sourcemaps = require 'gulp-sourcemaps'
+zip = require 'gulp-zip'
+es = require 'event-stream'
 NwBuilder = require 'node-webkit-builder'
+
+packageJson = require './package.json'
 
 lessPath = './app/styles/**/*.less'
 lessDest = './dist/styles'
@@ -26,24 +30,31 @@ gulp.task 'watch:less', ->
 
 gulp.task 'default', ['build:less', 'watch:less']
 
-deployPackages = Object.keys((require './package.json').dependencies)
 deployFiles = [
   './package.json'
   './index.html'
   './app/**/*'
   './dist/**/*'
-  (deployPackages.map (pack) -> "./node_modules/#{pack}/**/*")...
+  (Object.keys(packageJson.dependencies).map (pack) -> "./node_modules/#{pack}/**/*")...
   './bower_components/normalize.css/normalize.css'
   './bower_components/open-iconic/font/css/open-iconic.min.css'
   './bower_components/open-iconic/font/fonts/**/*'
 ]
+deployPlatforms = ['win32', 'osx64']
 
 gulp.task 'deploy', ->
   nw = new NwBuilder
     files: deployFiles
-    platforms: ['win32', 'osx64']
+    platforms: deployPlatforms
 
   nw.on 'log', (msg) ->
     gutil.log(msg)
 
   nw.build()
+
+gulp.task 'archive', ['deploy'], ->
+  tasks = deployPlatforms.map (platform) ->
+    gulp.src("./build/i18n-edit/#{platform}/**/*")
+      .pipe zip("i18n-edit_#{platform}.zip")
+      .pipe gulp.dest("./build/archives")
+  es.merge tasks...

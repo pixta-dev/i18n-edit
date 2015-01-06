@@ -1,10 +1,18 @@
 language: node_js
 node_js:
   - '0.11'
+before_deploy:
+  - $(npm bin)/bower install
+  - $(npm bin)/gulp archive
 deploy:
   provider: releases
   api_key:
     secure: DYm4pGbqGakxlo903jHvCVEoWhBIpcSNjF6brlFNo3MnWlIO03FQTsr416L8kXsuUukGrvqZYfFWWTSlMrKbk+EZFthUI7L3YLyMDi+uLkqUG8FDT9Oq2e04PgMFZPOJ6TtNCNGt3gptFiuKd3DxmRUOTjVPE/iLvh7CATwe77M=
-  file: ''
+  file:
+    - ./build/archives/i18n-edit_osx64.zip
+    - ./build/archives/i18n-edit_win32.zip
+  skip_cleanup: true
   on:
     repo: pixta-dev/i18n-edit
+    tags: true
+    all_branches: false
