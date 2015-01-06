@@ -16,9 +16,10 @@ if process.platform == 'darwin'
   win.menu = nativeMenuBar;
 
 window.onerror = (message, url, lineNumber, column, error) ->
-  window.alert ("エラーが発生しました: " + error.message + "\n再起動します...")
-  # Reload script (see https://groups.google.com/forum/#!topic/node-webkit/KI_ciowScNo)
-  gui.Window.get().reload(3)
+  window.alert ("エラーが発生しました: " + error.message + "\n終了します...")
+  ## Reload script (see https://groups.google.com/forum/#!topic/node-webkit/KI_ciowScNo)
+  #gui.Window.get().reload(3)
+  gui.App.quit();
 
 window.addEventListener 'load', ->
   app.start()
