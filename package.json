@@ -4,8 +4,7 @@
   "js-flags": "--harmony",
   "window": {
     "width": 1024,
-    "height": 768,
-    "toolbar": true
+    "height": 768
   },
   "devDependencies": {
     "bower": "^1.3.12",
