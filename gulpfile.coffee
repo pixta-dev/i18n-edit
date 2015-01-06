@@ -42,7 +42,7 @@ deployFiles = [
 ]
 deployPlatforms = ['win32', 'osx64']
 
-gulp.task 'deploy', ->
+gulp.task 'deploy', ['default'] ->
   nw = new NwBuilder
     files: deployFiles
     platforms: deployPlatforms
