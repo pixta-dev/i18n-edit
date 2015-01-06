@@ -15,4 +15,4 @@ deploy:
   on:
     repo: pixta-dev/i18n-edit
     tags: true
-    all_branches: false
+    all_branches: true
