@@ -28,7 +28,10 @@ gulp.task 'build:less', ->
 gulp.task 'watch:less', ->
   gulp.watch lessPath, ['build:less']
 
-gulp.task 'default', ['build:less', 'watch:less']
+gulp.task 'build', ['build:less']
+gulp.task 'watch', ['watch:less']
+
+gulp.task 'default', ['build', 'watch']
 
 deployFiles = [
   './package.json'
@@ -42,7 +45,7 @@ deployFiles = [
 ]
 deployPlatforms = ['win32', 'osx64']
 
-gulp.task 'deploy', ['default'] ->
+gulp.task 'deploy', ['build'], ->
   nw = new NwBuilder
     files: deployFiles
     platforms: deployPlatforms
