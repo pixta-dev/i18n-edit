@@ -1,3 +1,10 @@
 language: node_js
 node_js:
-  - "0.11"
+  - '0.11'
+deploy:
+  provider: releases
+  api_key:
+    secure: DYm4pGbqGakxlo903jHvCVEoWhBIpcSNjF6brlFNo3MnWlIO03FQTsr416L8kXsuUukGrvqZYfFWWTSlMrKbk+EZFthUI7L3YLyMDi+uLkqUG8FDT9Oq2e04PgMFZPOJ6TtNCNGt3gptFiuKd3DxmRUOTjVPE/iLvh7CATwe77M=
+  file: ''
+  on:
+    repo: pixta-dev/i18n-edit
