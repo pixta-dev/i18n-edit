@@ -35,6 +35,7 @@ gulp.task 'default', ['build', 'watch']
 
 deployFiles = [
   './package.json'
+  './LICENSE'
   './index.html'
   './app/**/*'
   './dist/**/*'
