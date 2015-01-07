@@ -10,6 +10,11 @@ Built on node-webkit
 
 * node-webkit 0.10+
 
+## UI Language
+
+* Japanese
+* TODO: English
+
 ## Development
 
 ### Prepare
