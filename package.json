@@ -34,7 +34,7 @@
     "virtual-dom": "0.0.23",
     "vtree-kup": "0.2.0"
   },
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Edit Rails i18n YAMLs with node-webkit UI",
   "directories": {
     "test": "test"
